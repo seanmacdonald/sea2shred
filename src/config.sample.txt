@@ -1,0 +1,6 @@
+//change this file's name to config.js
+//add your firebase project credentials inside the FIREBASE_CONFIG object below...
+
+export const FIREBASE_CONFIG = {
+    //YOUR CREDENTIALS HERE 
+};
