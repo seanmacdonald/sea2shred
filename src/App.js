@@ -4,11 +4,12 @@ import { createStore, applyMiddleware } from 'redux';
 import firebase from 'firebase'; 
 import ReduxThunk from 'redux-thunk'; 
 import reducers from './reducers'; 
-import Router from './Router'; 
+import Router from './Router';
+import { FIREBASE_CONFIG } from './config';  
 
 class App extends Component {
     componentWillMount() {
-        // TODO: configure firebase; 
+        firebase.initializeApp(FIREBASE_CONFIG); 
     }
 
     render() {
