@@ -1,0 +1,3 @@
+rootProject.name = 'sea2shred'
+
+include ':app'
