@@ -1,7 +1,10 @@
-import firebase from 'firebaes'; 
-import { Actions } from 'react-native-router-flux'; 
 import {
-    LOGIN_USER
+    EMAIL_CHANGED
 } from './types'; 
 
-//TODO: make login user action creator 
+export const emailChanged = (text) => {
+    return {
+        type: EMAIL_CHANGED, 
+        payload: text
+    };
+}; 

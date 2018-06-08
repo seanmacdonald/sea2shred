@@ -1,1 +1,6 @@
-//TODO: import reducers and combine them in this file 
+import { combineReducers } from 'redux'; 
+import AuthReducer from './AuthReducer'; 
+
+export default combineReducers({ 
+    auth: AuthReducer
+});
