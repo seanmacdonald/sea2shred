@@ -1,6 +1,7 @@
 import React, { Component } from 'react'; 
 import { connect } from 'react-redux'; 
 import { View, Text, TouchableWithoutFeedback } from 'react-native'; 
+import { Actions } from 'react-native-router-flux'; 
 import { emailChanged, passwordChanged, loginUser } from '../actions'; 
 import { Card, CardSection, Input, Button, Spinner } from './common'; 
 
@@ -28,8 +29,9 @@ class LoginForm extends Component {
     }
 
     //Color text for 'sign up' functions 
-    colorText() {
+    colorTextAndSignup() {
         this.setState({ signupPressed: true }); 
+        Actions.signup(); 
     }
 
     resetText() {
@@ -118,7 +120,7 @@ class LoginForm extends Component {
                         Don't have an account?
                     </Text>
                     <TouchableWithoutFeedback    
-                        onPressIn={this.colorText.bind(this)} 
+                        onPressIn={this.colorTextAndSignup.bind(this)} 
                         onPressOut={this.resetText.bind(this)}
                     >
                         <View style={{ alignSelf: 'center' }}>
