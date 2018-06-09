@@ -1,5 +1,6 @@
 import React, { Component } from 'react'; 
 import { connect } from 'react-redux'; 
+import { View, Text } from 'react-native'; 
 import { emailChanged, passwordChanged, loginUser } from '../actions'; 
 import { Card, CardSection, Input, Button, Spinner } from './common'; 
 
@@ -30,6 +31,20 @@ class LoginForm extends Component {
         );
     }
 
+    renderError() {
+        if (this.props.error) {
+            return (
+                <View>
+                    <Text>
+                        {this.props.error}
+                    </Text>
+                </View>
+            );
+        }
+        
+        return; 
+    }
+
     render() {
         return (
             <Card>
@@ -54,6 +69,9 @@ class LoginForm extends Component {
                     />
                 </CardSection>
 
+                {/*Conditional Error Message*/}
+                {this.renderError()}
+
                 {/*Login Button Card Section*/}
                 <CardSection>
                     {this.renderButton()} 
@@ -69,7 +87,8 @@ const mapStateToProps = (state) => {
     return {
         email: state.auth.email, 
         password: state.auth.password, 
-        loading: state.auth.loading
+        loading: state.auth.loading, 
+        error: state.auth.error
     };  
 };
 
