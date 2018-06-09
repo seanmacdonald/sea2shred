@@ -34,14 +34,14 @@ class LoginForm extends Component {
     renderError() {
         if (this.props.error) {
             return (
-                <View>
-                    <Text>
+                <View style={{ backgroundColor: 'white' }}>
+                    <Text style={styles.errorTextStyle}>
                         {this.props.error}
                     </Text>
                 </View>
             );
         }
-        
+
         return; 
     }
 
@@ -90,6 +90,14 @@ const mapStateToProps = (state) => {
         loading: state.auth.loading, 
         error: state.auth.error
     };  
+};
+
+const styles = {
+    errorTextStyle: {
+        fontSize: 20, 
+        alignSelf: 'center', 
+        color: 'red'
+    }
 };
 
 export default connect(mapStateToProps, {
