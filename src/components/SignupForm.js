@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'; 
+import { View, Text, TouchableWithoutFeedback } from 'react-native'; 
+import { Actions } from 'react-native-router-flux'; 
 
-import { Card, CardSection, Input } from './common';  
+import { Card, CardSection, Input, Button } from './common';  
 import { 
     signupFirstNameChanged, 
     signupLastNameChanged,
@@ -11,6 +13,9 @@ import {
 } from '../actions'; 
 
 class SignupForm extends Component {
+    //default state 
+    state = { signinPressed: false }; 
+
     onFirstNameChange(text) {
         this.props.signupFirstNameChanged(text); 
     }
@@ -29,6 +34,39 @@ class SignupForm extends Component {
 
     onConfirmPasswordChange(text) {
         this.props.signupConfirmPasswordChanged(text); 
+    }
+
+    renderButton() {
+        return (
+            <Button>
+                Sign Up
+            </Button>
+        );
+    }
+
+    colorTextAndSignin() {
+        this.setState({ signupPressed: true }); 
+        Actions.auth();
+    }
+
+    resetText() {
+        this.setState({ signupPressed: false });
+    }
+
+    renderSignupText() {
+        if (this.state.signinPressed) {
+            return (
+                <Text style={styles.signinPressedStyle}>
+                    Sign In 
+                </Text>
+            );
+        }
+
+        return (
+            <Text style={styles.signinNotPressedStyle}>
+                    Sign In 
+                </Text>
+        );
     }
 
     render() {
@@ -85,6 +123,26 @@ class SignupForm extends Component {
                         value={this.props.confirmPassword}
                     />
                 </CardSection>
+
+                {/*Login Button Card Section*/}
+                <CardSection>
+                    {this.renderButton()} 
+                </CardSection>
+
+                {/*Signin Link Section*/}
+                <View style={{ alignSelf: 'center', marginTop: 10 }}>
+                    <Text style={styles.sigupTextStyle}>
+                        Don't have an account?
+                    </Text>
+                    <TouchableWithoutFeedback    
+                        onPressIn={this.colorTextAndSignin.bind(this)} 
+                        onPressOut={this.resetText.bind(this)}
+                    >
+                        <View style={{ alignSelf: 'center' }}>
+                            {this.renderSignupText()}
+                        </View>
+                    </TouchableWithoutFeedback>
+                </View> 
             </Card>
         );
     }
@@ -98,6 +156,18 @@ const mapStateToProps = (state) => {
         password: state.newAcc.password, 
         confirmPassword: state.newAcc.confirmPassword
     };  
+};
+
+const styles = {
+    signinPressedStyle: {
+        color: '#3513bf', 
+        textDecorationLine: 'underline'
+    }, 
+
+    signinNotPressedStyle: {
+        color: '#007aff', 
+        textDecorationLine: 'underline'
+    }
 };
 
 export default connect(mapStateToProps, {
