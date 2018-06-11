@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'; 
 import { View, Text, TouchableWithoutFeedback } from 'react-native'; 
 import { Actions } from 'react-native-router-flux'; 
-import { emailChanged, passwordChanged, loginUser } from '../actions'; 
+import { loginEmailChanged, loginPasswordChanged, loginUser } from '../actions'; 
 import { Card, CardSection, Input, Button, Spinner } from './common'; 
 
 class LoginForm extends Component {
@@ -11,11 +11,11 @@ class LoginForm extends Component {
 
     //Action creator tigger methods
     onEmailChange(text) {
-        this.props.emailChanged(text); 
+        this.props.loginEmailChanged(text); 
     }
 
     onPasswordChange(text) {
-        this.props.passwordChanged(text); 
+        this.props.loginPasswordChanged(text); 
     }
 
     onSignupPress() {
@@ -31,7 +31,7 @@ class LoginForm extends Component {
     //Color text for 'sign up' functions 
     colorTextAndSignup() {
         this.setState({ signupPressed: true }); 
-        Actions.signup(); 
+        Actions.newAccount(); 
     }
 
     resetText() {
@@ -166,7 +166,7 @@ const styles = {
 };
 
 export default connect(mapStateToProps, {
-    emailChanged, 
-    passwordChanged, 
+    loginEmailChanged, 
+    loginPasswordChanged, 
     loginUser
 })(LoginForm); 

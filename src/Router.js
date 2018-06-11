@@ -1,5 +1,6 @@
 import React from 'react'; 
-import { Scene, Router } from 'react-native-router-flux'; 
+import { Scene, Router } from 'react-native-router-flux';
+ 
 import LoginForm from './components/LoginForm';
 import SignupForm from './components/SignupForm';
 import HomePage from './components/HomePage'; 
@@ -17,10 +18,15 @@ const RouterComponent = () => {
                     title="Log In"
                     initial
                 />
-                <Scene 
+            </Scene>
+
+            {/*New Account Scene */}
+            <Scene key="newAccount"> 
+                <Scene
                     key="signup"
                     component={SignupForm}
                     title="Sign Up"
+                    initial 
                 />
             </Scene>
 
