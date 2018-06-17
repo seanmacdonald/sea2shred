@@ -132,7 +132,7 @@ class SignupForm extends Component {
                 {/*Signin Link Section*/}
                 <View style={{ alignSelf: 'center', marginTop: 10 }}>
                     <Text style={styles.sigupTextStyle}>
-                        Don't have an account?
+                        Already have an account?
                     </Text>
                     <TouchableWithoutFeedback    
                         onPressIn={this.colorTextAndSignin.bind(this)} 
