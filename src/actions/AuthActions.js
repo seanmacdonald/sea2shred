@@ -9,6 +9,11 @@ import {
     LOGIN_USER_FAIL
 } from './types'; 
 
+
+/*
+    LOGIN FORM INPUT ACTION CREATORS 
+*/
+
 export const loginEmailChanged = (text) => {
     return {
         type: LOGIN_EMAIL_CHANGED, 
@@ -22,6 +27,11 @@ export const loginPasswordChanged = (text) => {
         payload: text
     };
 };  
+
+
+/*
+    LOGIN ACTION CREATOR
+*/
 
 export const loginUser = ({ email, password }) => {
     return (dispatch) => {

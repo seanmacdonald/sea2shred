@@ -10,4 +10,8 @@ export const SIGNUP_FIRST_NAME_CHANGED = 'signup_first_name_changed';
 export const SIGNUP_LAST_NAME_CHANGED = 'signup_last_name_changed';
 export const SIGNUP_EMAIL_CHANGED = 'signup_email_changed'; 
 export const SIGNUP_PASSWORD_CHANGED = 'signup_password_changed'; 
-export const SIGNUP_CONFIRM_PASSWORD_CHANGED = 'signup_confirm_password_changed'; 
+export const SIGNUP_CONFIRM_PASSWORD_CHANGED = 'signup_confirm_password_changed';
+export const SIGNUP_USER = 'signup_user'; 
+export const SIGNUP_USER_SUCCESS = 'signup_user_success'; 
+export const SIGNUP_USER_FAIL = 'signup_user_fail'; 
+ 

@@ -3,19 +3,26 @@ import { connect } from 'react-redux';
 import { View, Text, TouchableWithoutFeedback } from 'react-native'; 
 import { Actions } from 'react-native-router-flux'; 
 
-import { Card, CardSection, Input, Button } from './common';  
+import { Card, CardSection, Input, Button, Spinner } from './common';  
 import { 
     signupFirstNameChanged, 
     signupLastNameChanged,
     signupEmailChanged, 
     signupPasswordChanged, 
-    signupConfirmPasswordChanged
+    signupConfirmPasswordChanged, 
+    signupUser
 } from '../actions'; 
 
 class SignupForm extends Component {
-    //default state 
+    /*
+        default state
+    */
     state = { signinPressed: false }; 
 
+
+    /*
+        Action Creator Trigger Methods
+    */
     onFirstNameChange(text) {
         this.props.signupFirstNameChanged(text); 
     }
@@ -36,14 +43,16 @@ class SignupForm extends Component {
         this.props.signupConfirmPasswordChanged(text); 
     }
 
-    renderButton() {
-        return (
-            <Button>
-                Sign Up
-            </Button>
-        );
+    signupButtonPress() {
+        const { email, password } = this.props; 
+
+        this.props.signupUser({ email, password }); 
     }
 
+
+    /*
+        Helper Methods
+    */
     colorTextAndSignin() {
         this.setState({ signupPressed: true }); 
         Actions.auth();
@@ -51,6 +60,22 @@ class SignupForm extends Component {
 
     resetText() {
         this.setState({ signupPressed: false });
+    }
+
+
+    /*
+        Helper Render Methods
+    */
+    renderButton() {
+        if (this.props.loading) {
+            return <Spinner size='large' />;
+        }
+
+        return (
+            <Button onPress={this.signupButtonPress.bind(this)}>
+                Sign Up
+            </Button>
+        );
     }
 
     renderSignupText() {
@@ -69,6 +94,10 @@ class SignupForm extends Component {
         );
     }
 
+
+    /*
+        Render Method 
+    */
     render() {
         return (
             <Card>
@@ -76,7 +105,7 @@ class SignupForm extends Component {
                 <CardSection>
                     <Input 
                         label="FirstName"
-                        placeHolder="First Name"
+                        placeHolder="Jeff"
                         onChangeText={this.onFirstNameChange.bind(this)}
                         value={this.props.firstName}
                     />
@@ -86,7 +115,7 @@ class SignupForm extends Component {
                 <CardSection>
                     <Input 
                         label="LastName"
-                        placeHolder="Last Name"
+                        placeHolder="Jones"
                         onChangeText={this.onLastNameChange.bind(this)}
                         value={this.props.lastName}
                     />
@@ -148,16 +177,25 @@ class SignupForm extends Component {
     }
 }
 
+/*
+    Map State to Props
+*/
 const mapStateToProps = (state) => {
     return {
         firstName: state.newAcc.firstName,
         lastName: state.newAcc.lastName,
         email: state.newAcc.email, 
         password: state.newAcc.password, 
-        confirmPassword: state.newAcc.confirmPassword
+        confirmPassword: state.newAcc.confirmPassword,
+        loading: state.newAcc.loading,
+        error: state.newAcc.error
     };  
 };
 
+
+/*
+    Styles
+*/
 const styles = {
     signinPressedStyle: {
         color: '#3513bf', 
@@ -170,10 +208,15 @@ const styles = {
     }
 };
 
+
+/*
+    Export and Connect to Store
+*/
 export default connect(mapStateToProps, {
     signupFirstNameChanged, 
     signupLastNameChanged,
     signupEmailChanged, 
     signupPasswordChanged, 
-    signupConfirmPasswordChanged
+    signupConfirmPasswordChanged, 
+    signupUser 
 })(SignupForm); 

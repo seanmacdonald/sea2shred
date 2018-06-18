@@ -3,7 +3,10 @@ import {
     SIGNUP_LAST_NAME_CHANGED,
     SIGNUP_EMAIL_CHANGED, 
     SIGNUP_PASSWORD_CHANGED, 
-    SIGNUP_CONFIRM_PASSWORD_CHANGED
+    SIGNUP_CONFIRM_PASSWORD_CHANGED, 
+    SIGNUP_USER, 
+    SIGNUP_USER_SUCCESS, 
+    SIGNUP_USER_FAIL
 } from '../actions/types'; 
 
 const INITIAL_STATE = {
@@ -11,7 +14,9 @@ const INITIAL_STATE = {
     lastName: '', 
     email: '', 
     password: '', 
-    confirmPassword: ''
+    confirmPassword: '', 
+    loading: false, 
+    error: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -26,6 +31,12 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, password: action.payload }; 
         case SIGNUP_CONFIRM_PASSWORD_CHANGED:
             return { ...state, confirmPassword: action.payload };
+        case SIGNUP_USER:
+            return { ...state, loading: true, error: '' }; 
+        case SIGNUP_USER_SUCCESS:
+            return { ...state, ...INITIAL_STATE, user: action.payload }; 
+        case SIGNUP_USER_FAIL:
+            return { ...state, loading: false, error: 'Sign Up Failed' }; 
         default: 
             return state; 
     }
