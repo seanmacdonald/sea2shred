@@ -44,9 +44,9 @@ class SignupForm extends Component {
     }
 
     signupButtonPress() {
-        const { email, password } = this.props; 
+        const { formData } = this.props; 
 
-        this.props.signupUser({ email, password }); 
+        this.props.signupUser({ formData }); 
     }
 
 
@@ -94,11 +94,27 @@ class SignupForm extends Component {
         );
     }
 
+    renderError() {
+        const { error } = this.props; 
+
+        if (error) {
+            return (
+                <View style={{ backgroundColor: 'white' }}>
+                    <Text style={styles.errorTextStyle}>
+                        {error}
+                    </Text>
+                </View>
+            );
+        }
+    }
+
 
     /*
         Render Method 
     */
     render() {
+        const { formData } = this.props; 
+
         return (
             <Card>
                 {/*First Name Card Section*/}
@@ -107,7 +123,7 @@ class SignupForm extends Component {
                         label="FirstName"
                         placeHolder="Jeff"
                         onChangeText={this.onFirstNameChange.bind(this)}
-                        value={this.props.firstName}
+                        value={formData.firstName}
                     />
                 </CardSection>
 
@@ -117,7 +133,7 @@ class SignupForm extends Component {
                         label="LastName"
                         placeHolder="Jones"
                         onChangeText={this.onLastNameChange.bind(this)}
-                        value={this.props.lastName}
+                        value={formData.lastName}
                     />
                 </CardSection>
 
@@ -127,7 +143,7 @@ class SignupForm extends Component {
                         label="Email"
                         placeHolder="example@mail.com"
                         onChangeText={this.onEmailChange.bind(this)}
-                        value={this.props.email}
+                        value={formData.email}
                     />
                 </CardSection>
 
@@ -138,7 +154,7 @@ class SignupForm extends Component {
                         label="Password"
                         placeHolder="password"
                         onChangeText={this.onPasswordChange.bind(this)}
-                        value={this.props.password}
+                        value={formData.password}
                     />
                 </CardSection>
 
@@ -149,9 +165,12 @@ class SignupForm extends Component {
                         label="Password"
                         placeHolder="re-enter password"
                         onChangeText={this.onConfirmPasswordChange.bind(this)}
-                        value={this.props.confirmPassword}
+                        value={formData.confirmPassword}
                     />
                 </CardSection>
+
+                {/*Error Message*/}
+                {this.renderError()}
 
                 {/*Login Button Card Section*/}
                 <CardSection>
@@ -181,12 +200,16 @@ class SignupForm extends Component {
     Map State to Props
 */
 const mapStateToProps = (state) => {
-    return {
+    const formData = {
         firstName: state.newAcc.firstName,
         lastName: state.newAcc.lastName,
         email: state.newAcc.email, 
         password: state.newAcc.password, 
-        confirmPassword: state.newAcc.confirmPassword,
+        confirmPassword: state.newAcc.confirmPassword
+    };
+
+    return {
+        formData, 
         loading: state.newAcc.loading,
         error: state.newAcc.error
     };  
@@ -197,6 +220,11 @@ const mapStateToProps = (state) => {
     Styles
 */
 const styles = {
+    errorTextStyle: {
+        fontSize: 20, 
+        alignSelf: 'center', 
+        color: 'red'
+    }, 
     signinPressedStyle: {
         color: '#3513bf', 
         textDecorationLine: 'underline'

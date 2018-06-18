@@ -12,10 +12,15 @@ import {
     SIGNUP_USER_FAIL
 } from './types'; 
 
+// Error Message Constants 
+const MISSING_FORM_INPUT_ERROR = 'All fields must be filled in.'; 
+const PASSWORD_NOT_MATCHING_ERROR = 'Password was not re-entered correctly.';
+const ACCOUNT_NOT_CREATED_ERROR = 'Account could not be created';  
+
+
 /*
     SIGNUP FORM INPUT ACTION CREATORS 
 */
-
 export const signupFirstNameChanged = (text) => {
     return {
         type: SIGNUP_FIRST_NAME_CHANGED, 
@@ -51,30 +56,61 @@ export const signupConfirmPasswordChanged = (text) => {
     };
 };  
 
+
 /*
     SIGNUP ACTION CREATOR
 */
-//TODO: add logic to ensure user enters a first and last name
-//      and checks that the password was entered correctly 
-export const signupUser = ({ email, password }) => {
+export const signupUser = ({ formData }) => {
     return (dispatch) => {
         dispatch({ type: SIGNUP_USER });
 
-        firebase.auth().createUserWithEmailAndPassword(email, password)
+        //check that all fields are filled in
+        if (
+            formData.firstName === '' ||
+            formData.lastName === '' ||
+            formData.password === '' ||
+            formData.confirmPassword === '' ||
+            formData.email === ''
+        ) {
+                const formError = MISSING_FORM_INPUT_ERROR; 
+                signupUserFail(dispatch, formError); 
+                return; 
+        }
+        
+        //check that the password was re-entered correctly
+        if (formData.password !== formData.confirmPassword) {
+            const passwordError = PASSWORD_NOT_MATCHING_ERROR;
+            signupUserFail(dispatch, passwordError);
+            return;   
+        }
+
+        //attempt to sign up the new user... 
+        firebase.auth().createUserWithEmailAndPassword(formData.email, formData.password)
             .then((user) => {
                 signupUserSuccess(dispatch, user); 
             })
             .catch((error) => {
-                signupUserFail(dispatch, error);      
+                let accountError = ACCOUNT_NOT_CREATED_ERROR;
+                console.log(error);  
+
+                //if firebase has an error message then display it instead
+                if (error.message !== null) {
+                    accountError = error.message; 
+                }
+                console.log(accountError); 
+                signupUserFail(dispatch, accountError);      
             });
     };
 };
 
 
-const signupUserFail = (dispatch, error) => {
+/*
+    Helper Methods 
+*/
+const signupUserFail = (dispatch, errorMessage) => {
     dispatch({
         type: SIGNUP_USER_FAIL, 
-        payload: error
+        payload: errorMessage
     });
 };
 
