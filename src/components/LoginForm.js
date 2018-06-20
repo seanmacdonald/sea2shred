@@ -1,7 +1,6 @@
 import React, { Component } from 'react'; 
 import { connect } from 'react-redux'; 
 import { View, Text, TouchableWithoutFeedback } from 'react-native'; 
-import { Actions } from 'react-native-router-flux'; 
 import { loginEmailChanged, loginPasswordChanged, loginUser } from '../actions'; 
 import { Card, CardSection, Input, Button, Spinner } from './common'; 
 
@@ -18,20 +17,16 @@ class LoginForm extends Component {
         this.props.loginPasswordChanged(text); 
     }
 
-    onSignupPress() {
-        console.log('SIGN UP PAGE'); 
-    }
-
     loginButtonPress() {
-        const { email, password } = this.props; 
+        const { email, password, navigation } = this.props; 
 
-        this.props.loginUser({ email, password }); 
+        this.props.loginUser({ email, password, navigation }); 
     }
 
     //Color text for 'sign up' functions 
     colorTextAndSignup() {
         this.setState({ signupPressed: true }); 
-        Actions.newAccount(); 
+        this.props.navigation.navigate('signup');  
     }
 
     resetText() {

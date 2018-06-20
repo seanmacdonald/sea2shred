@@ -1,5 +1,4 @@
 import firebase from 'firebase'; 
-import { Actions } from 'react-native-router-flux';
 
 import {
     LOGIN_EMAIL_CHANGED, 
@@ -33,13 +32,13 @@ export const loginPasswordChanged = (text) => {
     LOGIN ACTION CREATOR
 */
 
-export const loginUser = ({ email, password }) => {
+export const loginUser = ({ email, password, navigation }) => {
     return (dispatch) => {
         dispatch({ type: LOGIN_USER });
 
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then((user) => {
-                loginUserSuccess(dispatch, user); 
+                loginUserSuccess(dispatch, user, navigation); 
             })
             .catch((error) => {
                 loginUserFail(dispatch, error);      
@@ -47,13 +46,13 @@ export const loginUser = ({ email, password }) => {
     };
 };
 
-const loginUserSuccess = (dispatch, user) => {
+const loginUserSuccess = (dispatch, user, navigation) => {
     dispatch({ 
         type: LOGIN_USER_SUCCESS,
         payload: user  
     });
-
-    Actions.main(); 
+    console.log(this.props); 
+    navigation.navigate('homepage'); 
 };
 
 const loginUserFail = (dispatch, error) => {

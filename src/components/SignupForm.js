@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'; 
 import { View, Text, TouchableWithoutFeedback } from 'react-native'; 
-import { Actions } from 'react-native-router-flux'; 
 
 import { Card, CardSection, Input, Button, Spinner } from './common';  
 import { 
@@ -44,9 +43,9 @@ class SignupForm extends Component {
     }
 
     signupButtonPress() {
-        const { formData } = this.props; 
+        const { formData, navigation } = this.props; 
 
-        this.props.signupUser({ formData }); 
+        this.props.signupUser({ formData, navigation }); 
     }
 
 
@@ -55,7 +54,7 @@ class SignupForm extends Component {
     */
     colorTextAndSignin() {
         this.setState({ signupPressed: true }); 
-        Actions.auth();
+        this.props.navigation.navigate('login'); 
     }
 
     resetText() {

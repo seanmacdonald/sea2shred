@@ -1,5 +1,4 @@
 import firebase from 'firebase'; 
-import { Actions } from 'react-native-router-flux'; 
 
 import {
     SIGNUP_FIRST_NAME_CHANGED,
@@ -60,7 +59,7 @@ export const signupConfirmPasswordChanged = (text) => {
 /*
     SIGNUP ACTION CREATOR
 */
-export const signupUser = ({ formData }) => {
+export const signupUser = ({ formData, navigation }) => {
     return (dispatch) => {
         dispatch({ type: SIGNUP_USER });
 
@@ -87,7 +86,7 @@ export const signupUser = ({ formData }) => {
         //attempt to sign up the new user... 
         firebase.auth().createUserWithEmailAndPassword(formData.email, formData.password)
             .then((user) => {
-                signupUserSuccess(dispatch, user); 
+                signupUserSuccess(dispatch, user, navigation); 
             })
             .catch((error) => {
                 let accountError = ACCOUNT_NOT_CREATED_ERROR;
@@ -114,12 +113,12 @@ const signupUserFail = (dispatch, errorMessage) => {
     });
 };
 
-const signupUserSuccess = (dispatch, user) => {
+const signupUserSuccess = (dispatch, user, navigation) => {
     dispatch({
         type: SIGNUP_USER_SUCCESS, 
         payload: user 
     });
 
-    Actions.main();
+    navigation.navigate('homepage'); 
 };
 
