@@ -5,7 +5,9 @@ import {
     LOGIN_PASSWORD_CHANGED,
     LOGIN_USER,
     LOGIN_USER_SUCCESS, 
-    LOGIN_USER_FAIL
+    LOGIN_USER_FAIL, 
+    USER_LOGGED_IN, 
+    USER_NOT_LOGGED_IN
 } from './types'; 
 
 
@@ -29,7 +31,7 @@ export const loginPasswordChanged = (text) => {
 
 
 /*
-    LOGIN ACTION CREATOR
+    LOGIN ACTION CREATORS
 */
 
 export const loginUser = ({ email, password, navigation }) => {
@@ -45,6 +47,23 @@ export const loginUser = ({ email, password, navigation }) => {
             });
     };
 };
+
+export const userLoggedIn = () => {
+    return (dispatch) => {
+        dispatch({ type: USER_LOGGED_IN });
+    };
+};
+
+export const userNotLoggedIn = () => {
+    return (dispatch) => {
+        dispatch({ type: USER_NOT_LOGGED_IN });
+    };
+};
+
+
+/*
+    Login Helper Methods 
+*/
 
 const loginUserSuccess = (dispatch, user, navigation) => {
     dispatch({ 

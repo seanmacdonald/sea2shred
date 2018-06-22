@@ -140,7 +140,7 @@ class SignupForm extends Component {
                 <CardSection>
                     <Input 
                         label="Email"
-                        placeHolder="example@mail.com"
+                        placeHolder="jj@mail.com"
                         onChangeText={this.onEmailChange.bind(this)}
                         value={formData.email}
                     />
