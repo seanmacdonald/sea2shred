@@ -4,14 +4,14 @@ import { View } from 'react-native';
 import { Header } from './common'; 
 
 class HomePage extends Component {
-    static navigationOptions = {
+    /*static navigationOptions = {
         tabBarlabel: 'My Account'
-    }
+    }*/
 
     render() {
         return (
             <View>
-                <Header navigation={this.props.navigation} headerText='Map' /> 
+                <Header navigation={this.props.navigation} headerText='Map' />
             </View> 
         );
     }

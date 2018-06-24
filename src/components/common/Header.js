@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native'; 
-import { Icon } from 'react-native-elements'; 
+import { Icon } from 'react-native-elements';
+import { NavigationActions } from 'react-navigation';  
 
 
 class Header extends Component {
@@ -10,6 +11,7 @@ class Header extends Component {
             <View style={viewStyle}>
                 <Icon 
                     name='menu'
+                    onPress={() => this.props.navigation.openDrawer()}
                 />
                 <Text style={textStyle}>{this.props.headerText}</Text>
             </View>
@@ -36,7 +38,6 @@ const styles = {
         fontSize: 20
     }
 };
-
 
 
 /*

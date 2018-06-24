@@ -60,7 +60,7 @@ const GuestRouter = StackNavigator({
 */
 const HomeRouter = DrawerNavigator({
     Map: { screen: MapPage },
-    LogOut: { screen: SettingsPage }
+    Settings: { screen: SettingsPage }
 }, 
 {
     initialRouteName: 'Map'
