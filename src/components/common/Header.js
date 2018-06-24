@@ -1,21 +1,23 @@
-// Import libraries for making a component 
-import React from 'react';
+import React, { Component } from 'react';
 import { Text, View } from 'react-native'; 
-
-// Make a component 
-const Header = (props) => {
-    const { textStyle, viewStyle } = styles; 
-
-    return (
-        <View style={viewStyle}>
-          <Text style={textStyle}>{props.headerText}</Text>
-        </View>
-    ); //rather than hard coding "Albums!" we should let the app component decide what it will say 
-       //whenever we make reference to a javacript variable inside jsx, we use curly braces 
-};
+import { Icon } from 'react-native-elements'; 
 
 
-//add the styling for the component here 
+class Header extends Component {
+    render() {
+        const { viewStyle, textStyle } = styles; 
+        return (
+            <View style={viewStyle}>
+                <Icon 
+                    name='menu'
+                />
+                <Text style={textStyle}>{this.props.headerText}</Text>
+            </View>
+        ); 
+    }
+}
+
+
 const styles = {
     viewStyle: {
         backgroundColor: '#F8F8F8', //greyish 
@@ -27,12 +29,27 @@ const styles = {
         shadowOffset: { width: 0, height: 2 }, 
         shadowOpacity: 0.2,
         elevation: 2, 
-        position: 'relative'
+        position: 'relative', 
+        flexDirection: 'row'
     },
     textStyle: {
         fontSize: 20
     }
 };
 
-// Make the component available to other parts of the app 
+
+
+/*
+backgroundColor: '#F8F8F8', //greyish 
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 60,
+        paddingTop: 15, 
+        shadowColor: '#000', //black
+        shadowOffset: { width: 0, height: 2 }, 
+        shadowOpacity: 0.2,
+        elevation: 2, 
+        position: 'relative'
+*/
+
 export { Header }; 
