@@ -1,19 +1,23 @@
 import React, { Component } from 'react'; 
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import { connect } from 'react-redux';
 import firebase from 'firebase';  
 
  
 import LoginForm from './components/LoginForm';
 import SignupForm from './components/SignupForm';
-import HomePage from './components/HomePage'; 
-import { userLoggedIn, userNotLoggedIn } from './actions'; 
+import MapPage from './components/MapPage';
+import SettingsPage from './components/SettingsPage';  
+import { userLoggedIn, userNotLoggedIn } from './actions';
+import { Spinner } from './components/common';  
 
 class Router extends Component {
-    constructor(props) {
-        super(props);
+    componentWillMount() { 
+        this.checkUserLoggedIn(); 
+    }
 
-        // check if a user is already logged in 
+
+    checkUserLoggedIn() {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 this.props.userLoggedIn(); // there is a user logged in, so use HomeRouter 
@@ -23,12 +27,18 @@ class Router extends Component {
         });
     }
 
+
     render() {
-        if (this.props.loggedIn) {
-            return <HomeRouter />;
+        if (this.props.checkedLoginStatus) {
+            //either render the HomeRouter or GuestRouter
+            if (this.props.loggedIn) {
+                return <HomeRouter />;
+            }
+            return <GuestRouter />;
         }
 
-        return <GuestRouter />;
+        //wait for the checkedLoginStatus flag 
+        return <Spinner size='large' />; // TODO: replace with nice loading page
     }
 } 
 
@@ -48,18 +58,22 @@ const GuestRouter = StackNavigator({
 /*
     Home Routes (logged in)
 */
-const HomeRouter = StackNavigator({
-    homePage: { screen: HomePage }
+const HomeRouter = DrawerNavigator({
+    Map: { screen: MapPage },
+    LogOut: { screen: SettingsPage }
 }, 
 {
-    initialRouteName: 'homePage'
+    initialRouteName: 'Map'
 });
+
 
 const mapStateToProps = (state) => {
     return {
-            loggedIn: state.auth.loggedIn
+            loggedIn: state.auth.loggedIn, 
+            checkedLoginStatus: state.auth.checkedLoginStatus
         };
 };
+
 
 export default connect(mapStateToProps, {
     userLoggedIn, userNotLoggedIn

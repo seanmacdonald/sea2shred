@@ -14,7 +14,8 @@ const INITIAL_STATE = {
     loading: false, 
     error: '', 
     user: null, 
-    loggedIn: false
+    loggedIn: false, 
+    checkedLoginStatus: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -30,9 +31,9 @@ export default (state = INITIAL_STATE, action) => {
         case LOGIN_USER_FAIL:
             return { ...state, loading: false, error: 'Authentication Failed', password: '' };
         case USER_LOGGED_IN:
-            return { ...state, ...INITIAL_STATE, loggedIn: true };
+            return { ...state, ...INITIAL_STATE, checkedLoginStatus: true, loggedIn: true };
         case USER_NOT_LOGGED_IN:
-            return { ...state, ...INITIAL_STATE, loggedIn: false };
+            return { ...state, ...INITIAL_STATE, checkedLoginStatus: true, loggedIn: false };
         default: 
             return state; 
     }

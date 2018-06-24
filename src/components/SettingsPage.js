@@ -1,12 +1,12 @@
 import React, { Component } from 'react'; 
 import { Text } from 'react-native'; 
 
-class HomePage extends Component {
+class SettingsPage extends Component {
     render() {
         return (
-            <Text>TODO: IMPLEMENT HOME PAGE</Text> 
+            <Text>TODO: IMPLEMENT SETTINGS PAGE</Text> 
         );
     }
 }
 
-export default HomePage; 
+export default SettingsPage; 
