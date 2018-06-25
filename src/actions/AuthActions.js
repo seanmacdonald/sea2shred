@@ -7,7 +7,8 @@ import {
     LOGIN_USER_SUCCESS, 
     LOGIN_USER_FAIL, 
     USER_LOGGED_IN, 
-    USER_NOT_LOGGED_IN
+    USER_NOT_LOGGED_IN, 
+    USER_LOGGED_OUT,
 } from './types'; 
 
 
@@ -50,6 +51,7 @@ export const loginUser = ({ email, password, navigation }) => {
 
 export const userLoggedIn = () => {
     return (dispatch) => {
+        console.log('user is already logged in'); 
         dispatch({ type: USER_LOGGED_IN });
     };
 };
@@ -79,4 +81,14 @@ const loginUserFail = (dispatch, error) => {
         type: LOGIN_USER_FAIL, 
         payload: error
     }); 
+};
+
+
+/*
+    Logout Action Creators 
+*/
+export const userLoggedOut = () => {
+    return (dispatch) => {
+        dispatch({ type: USER_LOGGED_OUT }); 
+    };
 };

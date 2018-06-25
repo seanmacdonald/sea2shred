@@ -5,7 +5,8 @@ import {
     LOGIN_USER_SUCCESS, 
     LOGIN_USER_FAIL,
     USER_LOGGED_IN, 
-    USER_NOT_LOGGED_IN
+    USER_NOT_LOGGED_IN, 
+    USER_LOGGED_OUT
 } from '../actions/types'; 
 
 const INITIAL_STATE = {
@@ -34,6 +35,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, ...INITIAL_STATE, checkedLoginStatus: true, loggedIn: true };
         case USER_NOT_LOGGED_IN:
             return { ...state, ...INITIAL_STATE, checkedLoginStatus: true, loggedIn: false };
+        case USER_LOGGED_OUT:
+            return { ...state, loggedIn: false }; 
         default: 
             return state; 
     }

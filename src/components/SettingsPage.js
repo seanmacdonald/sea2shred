@@ -3,13 +3,15 @@ import { View } from 'react-native';
 import firebase from 'firebase';  
 
 import { Header, Button, CardSection } from './common'; 
+import { userLoggedOut } from '../actions'; 
 
 class SettingsPage extends Component {
     onLogputPress() {
         firebase.auth().signOut()
             .then(() => {
                 console.log('sign out successful!');
-                this.props.navigation.navigate('login');  
+                //this.props.navigation.navigate('login');
+                userLoggedOut(); //call action creator for updating the loggedIn status flag  
             })
             .catch(() => {
                 console.log('could not sign user out'); 
@@ -27,5 +29,6 @@ class SettingsPage extends Component {
         );
     }
 }
+
 
 export default SettingsPage; 

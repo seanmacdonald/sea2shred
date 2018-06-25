@@ -5,7 +5,8 @@ export const LOGIN_USER = 'login_user';
 export const LOGIN_USER_SUCCESS = 'login_user_success'; 
 export const LOGIN_USER_FAIL = 'login_user_fail';
 export const USER_LOGGED_IN = 'user_logged_in'; 
-export const USER_NOT_LOGGED_IN = 'user_not_logged_in';  
+export const USER_NOT_LOGGED_IN = 'user_not_logged_in'; 
+export const USER_LOGGED_OUT = 'user_logged_out';  
 
 //New Account Constants 
 export const SIGNUP_FIRST_NAME_CHANGED = 'signup_first_name_changed';
