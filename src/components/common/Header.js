@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native'; 
 import { Icon } from 'react-native-elements';
-import { NavigationActions } from 'react-navigation';  
 
 
 class Header extends Component {
     render() {
-        const { viewStyle, textStyle } = styles; 
+        const { containerStyle, textStyle, iconStyle, textContainerStyle, iconContainerStyle } = styles; 
         return (
-            <View style={viewStyle}>
-                <Icon 
-                    name='menu'
-                    onPress={() => this.props.navigation.openDrawer()}
-                />
-                <Text style={textStyle}>{this.props.headerText}</Text>
+            <View style={containerStyle}>
+                <View style={iconContainerStyle}>
+                    <Icon
+                        style={iconStyle} 
+                        name='menu'
+                        onPress={() => this.props.navigation.openDrawer()}
+                    />
+                </View>
+                <View style={textContainerStyle}>
+                    <Text style={textStyle}>{this.props.headerText}</Text>
+                </View>
             </View>
         ); 
     }
@@ -21,36 +25,36 @@ class Header extends Component {
 
 
 const styles = {
-    viewStyle: {
-        backgroundColor: '#F8F8F8', //greyish 
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 60,
-        paddingTop: 15, 
-        shadowColor: '#000', //black
-        shadowOffset: { width: 0, height: 2 }, 
-        shadowOpacity: 0.2,
-        elevation: 2, 
-        position: 'relative', 
-        flexDirection: 'row'
-    },
     textStyle: {
+        alignItems: 'flex-end', 
         fontSize: 20
+    },
+    textContainerStyle: {
+        flex: 2.1, 
+        flexDirection: 'column',
+        alignItems: 'center', 
+        zIndex: 1
+    },
+
+    iconStyle: {
+    },
+    iconContainerStyle: {
+        backgroundColor: '#F8F8F8', //greyish 
+        alignItems: 'flex-start', 
+        position: 'absolute', 
+        top: 20, 
+        left: 20,  
+        zIndex: 2
+    },
+
+    containerStyle: {
+        backgroundColor: '#F8F8F8', //greyish 
+        flexDirection: 'row', 
+        height: 60, 
+        alignItems: 'center', 
+        justifyContent: 'space-between'
     }
 };
 
-
-/*
-backgroundColor: '#F8F8F8', //greyish 
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 60,
-        paddingTop: 15, 
-        shadowColor: '#000', //black
-        shadowOffset: { width: 0, height: 2 }, 
-        shadowOpacity: 0.2,
-        elevation: 2, 
-        position: 'relative'
-*/
 
 export { Header }; 
