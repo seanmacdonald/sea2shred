@@ -17,7 +17,7 @@ class ShreddersPage extends Component {
     rightIcon = (
             <Icon
                 name='person-add'
-                onPress={() => this.props.navigation.navigate('Map')}
+                onPress={() => this.props.navigation.navigate('AddShredders')}
             />
         );
 

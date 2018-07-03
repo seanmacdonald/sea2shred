@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import { connect } from 'react-redux';
 import firebase from 'firebase';  
+import { Icon } from 'react-native-elements'; 
 
  
 import LoginForm from './components/LoginForm';
 import SignupForm from './components/SignupForm';
 import MapPage from './components/MapPage';
 import ShreddersPage from './components/ShreddersPage'; 
+import AddShredders from './components/AddShredders'; 
 import SettingsPage from './components/SettingsPage';  
 import { userLoggedIn, userNotLoggedIn } from './actions';
 import { Spinner } from './components/common';  
@@ -57,11 +59,40 @@ const GuestRouter = StackNavigator({
 
 
 /*
+    Shredders Stack Navigator 
+*/
+const ShreddersStack = StackNavigator({
+    Shredders: { 
+        screen: ShreddersPage,
+        navigationOptions: {
+            header: null
+        } 
+    }, 
+    AddShredders: { screen: AddShredders }
+}, 
+{
+    initialRouteName: 'Shredders'
+}); 
+
+
+/*
     Home Routes (logged in)
 */
 const HomeRouter = DrawerNavigator({
     Map: { screen: MapPage },
-    Shredders: { screen: ShreddersPage },
+
+    //nested stack navigator 
+    Shredders: { 
+        screen: ShreddersStack,
+        navigationOptions: {
+            drawerLabel: 'Shredders',
+            drawerIcon: () => (
+              <Icon
+                name='people'
+              />
+            )
+          } 
+    },
     Settings: { screen: SettingsPage }
 }, 
 {
