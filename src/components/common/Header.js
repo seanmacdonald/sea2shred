@@ -5,18 +5,27 @@ import { Icon } from 'react-native-elements';
 
 class Header extends Component {
     render() {
-        const { containerStyle, textStyle, iconStyle, textContainerStyle, iconContainerStyle } = styles; 
+        const { containerStyle, textStyle, textContainerStyle, 
+                iconLeftContainerStyle, iconRightContainerStyle } = styles; 
         return (
             <View style={containerStyle}>
-                <View style={iconContainerStyle}>
+
+                {/*Left Icon (the menu icon)*/}
+                <View style={iconLeftContainerStyle}>
                     <Icon
-                        style={iconStyle} 
                         name='menu'
                         onPress={() => this.props.navigation.openDrawer()}
                     />
                 </View>
+
+                {/*Title*/}
                 <View style={textContainerStyle}>
                     <Text style={textStyle}>{this.props.headerText}</Text>
+                </View>
+
+                {/*Right Icon (if there is one)*/}
+                <View style={iconRightContainerStyle}>
+                    {this.props.rightIcon}
                 </View>
             </View>
         ); 
@@ -25,6 +34,7 @@ class Header extends Component {
 
 
 const styles = {
+    //text styles 
     textStyle: {
         alignItems: 'flex-end', 
         fontSize: 20
@@ -36,9 +46,8 @@ const styles = {
         zIndex: 1
     },
 
-    iconStyle: {
-    },
-    iconContainerStyle: {
+    //icon styling 
+    iconLeftContainerStyle: {
         backgroundColor: '#F8F8F8', //greyish 
         alignItems: 'flex-start', 
         position: 'absolute', 
@@ -46,7 +55,16 @@ const styles = {
         left: 20,  
         zIndex: 2
     },
+    iconRightContainerStyle: {
+        backgroundColor: '#F8F8F8', //greyish 
+        alignItems: 'flex-start', 
+        position: 'absolute', 
+        top: 20, 
+        right: 20,  
+        zIndex: 2
+    },
 
+    //container styling
     containerStyle: {
         backgroundColor: '#F8F8F8', //greyish 
         flexDirection: 'row', 

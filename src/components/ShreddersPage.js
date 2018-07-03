@@ -14,10 +14,21 @@ class ShreddersPage extends Component {
         ),
       };
 
+    rightIcon = (
+            <Icon
+                name='person-add'
+                onPress={() => this.props.navigation.navigate('Map')}
+            />
+        );
+
     render() {
         return (
             <View>
-                <Header navigation={this.props.navigation} headerText='Shredders' />
+                <Header 
+                    navigation={this.props.navigation} 
+                    headerText='Shredders'
+                    rightIcon={this.rightIcon} 
+                />
             </View> 
         );
     }
