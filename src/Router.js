@@ -7,6 +7,7 @@ import firebase from 'firebase';
 import LoginForm from './components/LoginForm';
 import SignupForm from './components/SignupForm';
 import MapPage from './components/MapPage';
+import ShreddersPage from './components/ShreddersPage'; 
 import SettingsPage from './components/SettingsPage';  
 import { userLoggedIn, userNotLoggedIn } from './actions';
 import { Spinner } from './components/common';  
@@ -60,6 +61,7 @@ const GuestRouter = StackNavigator({
 */
 const HomeRouter = DrawerNavigator({
     Map: { screen: MapPage },
+    Shredders: { screen: ShreddersPage },
     Settings: { screen: SettingsPage }
 }, 
 {

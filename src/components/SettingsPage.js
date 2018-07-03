@@ -8,7 +8,7 @@ import { userLoggedOut } from '../actions';
 
 class SettingsPage extends Component {
     static navigationOptions = {
-        drawerLabel: 'Map',
+        drawerLabel: 'Settings',
         drawerIcon: () => (
           <Icon
             name='settings'
