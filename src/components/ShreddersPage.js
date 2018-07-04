@@ -23,7 +23,7 @@ class ShreddersPage extends Component {
 
     render() {
         return (
-            <View>
+            <View style={{ backgroundColor: 'blue' }}>
                 <Header 
                     navigation={this.props.navigation} 
                     headerText='Shredders'

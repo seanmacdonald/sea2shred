@@ -32,7 +32,8 @@ class Router extends Component {
 
 
     render() {
-        if (this.props.checkedLoginStatus) {
+        return <HomeRouter />;
+        /*if (this.props.checkedLoginStatus) {
             //either render the HomeRouter or GuestRouter
             if (this.props.loggedIn) {
                 return <HomeRouter />;
@@ -41,7 +42,7 @@ class Router extends Component {
         }
 
         //wait for the checkedLoginStatus flag 
-        return <Spinner size='large' />; // TODO: replace with nice loading page
+        return <Spinner size='large' />; // TODO: replace with nice loading page*/
     }
 } 
 
@@ -68,7 +69,9 @@ const ShreddersStack = StackNavigator({
             header: null
         } 
     }, 
-    AddShredders: { screen: AddShredders }
+    AddShredders: { 
+        screen: AddShredders 
+    }
 }, 
 {
     initialRouteName: 'Shredders'
@@ -81,7 +84,7 @@ const ShreddersStack = StackNavigator({
 const HomeRouter = DrawerNavigator({
     Map: { screen: MapPage },
 
-    //nested stack navigator 
+    //nested stack navigator for shredder page
     Shredders: { 
         screen: ShreddersStack,
         navigationOptions: {
@@ -91,8 +94,9 @@ const HomeRouter = DrawerNavigator({
                 name='people'
               />
             )
-          } 
+          }
     },
+
     Settings: { screen: SettingsPage }
 }, 
 {

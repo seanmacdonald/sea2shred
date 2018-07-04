@@ -48,7 +48,7 @@ const styles = {
 
     //icon styling 
     iconLeftContainerStyle: {
-        backgroundColor: '#F8F8F8', //greyish 
+        backgroundColor: '#dd7ac8', //pinkish 
         alignItems: 'flex-start', 
         position: 'absolute', 
         top: 20, 
@@ -56,7 +56,7 @@ const styles = {
         zIndex: 2
     },
     iconRightContainerStyle: {
-        backgroundColor: '#F8F8F8', //greyish 
+        backgroundColor: '#dd7ac8', //pinkish  
         alignItems: 'flex-start', 
         position: 'absolute', 
         top: 20, 
@@ -66,7 +66,7 @@ const styles = {
 
     //container styling
     containerStyle: {
-        backgroundColor: '#F8F8F8', //greyish 
+        backgroundColor: '#dd7ac8', //pinkish   //'#F8F8F8', //greyish 
         flexDirection: 'row', 
         height: 60, 
         alignItems: 'center', 
