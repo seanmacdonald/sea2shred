@@ -32,8 +32,8 @@ class Router extends Component {
 
 
     render() {
-        return <HomeRouter />;
-        /*if (this.props.checkedLoginStatus) {
+        //return <HomeRouter />;
+        if (this.props.checkedLoginStatus) {
             //either render the HomeRouter or GuestRouter
             if (this.props.loggedIn) {
                 return <HomeRouter />;
@@ -42,7 +42,7 @@ class Router extends Component {
         }
 
         //wait for the checkedLoginStatus flag 
-        return <Spinner size='large' />; // TODO: replace with nice loading page*/
+        return <Spinner size='large' />; // TODO: replace with nice loading page
     }
 } 
 

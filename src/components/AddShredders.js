@@ -1,5 +1,5 @@
 import React, { Component } from 'react'; 
-import { Text } from 'react-native'; 
+import { View, Text } from 'react-native'; 
 
 
 class AddShredders extends Component {
@@ -16,10 +16,19 @@ class AddShredders extends Component {
 
     render() {
         return (
-            <Text>TODO: IMPLEMENT ADD SHREDDERS PAGE</Text> 
+            <View style={styles.containerStyle}>
+                <Text>TODO: IMPLEMENT ADD SHREDDERS PAGE</Text> 
+            </View>
         );
     }
 }
+
+const styles = {
+    containerStyle: {
+        backgroundColor: 'white', 
+        flex: 1
+    }
+}; 
 
 export default AddShredders; 
 

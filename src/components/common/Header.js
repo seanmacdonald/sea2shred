@@ -51,7 +51,7 @@ const styles = {
         backgroundColor: '#dd7ac8', //pinkish 
         alignItems: 'flex-start', 
         position: 'absolute', 
-        top: 20, 
+        top: 30, 
         left: 20,  
         zIndex: 2
     },
@@ -59,7 +59,7 @@ const styles = {
         backgroundColor: '#dd7ac8', //pinkish  
         alignItems: 'flex-start', 
         position: 'absolute', 
-        top: 20, 
+        top: 30, 
         right: 20,  
         zIndex: 2
     },
@@ -68,9 +68,10 @@ const styles = {
     containerStyle: {
         backgroundColor: '#dd7ac8', //pinkish   //'#F8F8F8', //greyish 
         flexDirection: 'row', 
-        height: 60, 
+        height: 65, 
         alignItems: 'center', 
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        paddingTop: 15
     }
 };
 
