@@ -1,7 +1,9 @@
 import React, { Component } from 'react'; 
+import { connect } from 'react-redux'; 
 import { View, Text } from 'react-native'; 
 import { Icon } from 'react-native-elements';
 
+import { fetchShredders } from '../actions'; 
 import { Header } from './common'; 
 
 class ShreddersPage extends Component {
@@ -14,6 +16,11 @@ class ShreddersPage extends Component {
         ),
       };
 
+    componentDidMount() {
+        //fetch all shredders that are friends with user
+        this.props.fetchShredders();  
+    }
+
     rightIcon = (
             <Icon
                 name='person-add'
@@ -22,6 +29,7 @@ class ShreddersPage extends Component {
         );
 
     render() {
+        console.log(this.props.loading); 
         return (
             <View style={styles.containerStyle}>
                 <Header 
@@ -42,4 +50,12 @@ const styles = {
     }
 }; 
 
-export default ShreddersPage; 
+const MapStateToProps = (state) => {
+    return {
+        loading: state.shred.loading
+    };
+};
+
+export default connect(MapStateToProps, {
+    fetchShredders
+})(ShreddersPage); 

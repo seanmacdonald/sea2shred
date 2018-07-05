@@ -17,4 +17,9 @@ export const SIGNUP_CONFIRM_PASSWORD_CHANGED = 'signup_confirm_password_changed'
 export const SIGNUP_USER = 'signup_user'; 
 export const SIGNUP_USER_SUCCESS = 'signup_user_success'; 
 export const SIGNUP_USER_FAIL = 'signup_user_fail'; 
+
+//Shredder Actions 
+export const FETCH_SHREDDERS = 'fetch_shredders';
+export const FETCH_SHREDDERS_SUCCESS = 'fetch_shredders_success'; 
+export const FETCH_SHREDDERS_FAIL = 'fetch_shredders_fail';  
  
