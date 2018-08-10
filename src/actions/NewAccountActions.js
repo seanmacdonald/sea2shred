@@ -1,4 +1,5 @@
 import firebase from 'firebase'; 
+import '@firebase/firestore'; 
 
 import {
     SIGNUP_FIRST_NAME_CHANGED,
@@ -86,11 +87,20 @@ export const signupUser = ({ formData, navigation }) => {
         //attempt to sign up the new user... 
         firebase.auth().createUserWithEmailAndPassword(formData.email, formData.password)
             .then((user) => {
+                createShredderDoc(user);
+            })
+            .catch((error) => {
+                console.log('could not create shredder doc'); 
+                console.log(error); 
+            })
+            .then((user) => {
                 signupUserSuccess(dispatch, user, navigation); 
             })
             .catch((error) => {
-                let accountError = ACCOUNT_NOT_CREATED_ERROR;
+                console.log('could not signup user');
                 console.log(error);  
+
+                let accountError = ACCOUNT_NOT_CREATED_ERROR;
 
                 //if firebase has an error message then display it instead
                 if (error.message !== null) {
@@ -106,6 +116,27 @@ export const signupUser = ({ formData, navigation }) => {
 /*
     Helper Methods 
 */
+const createShredderDoc = (user) => {
+    //first initialize firestore with proper settigns
+    const firestore = firebase.firestore();
+    const settings = { timestampsInSnapshots: true }; 
+    firestore.settings(settings);
+
+    //get refference to root node 'shredders' 
+    const shredderColRef = firestore.collection('shredders');
+    
+    //add a new document with a generated id to the root collection 'shredders'
+    shredderColRef.add({
+        email: user.user.email
+    }).then((docRef) => {
+        console.log('SHREDDER UPDATE SUCCESS: ', docRef.id); 
+        return user; 
+    }).catch((error) => {
+        console.log('SHREDDER UPDATE FAIL'); 
+        console.log(error);
+    }); 
+};
+
 const signupUserFail = (dispatch, errorMessage) => {
     dispatch({
         type: SIGNUP_USER_FAIL, 
