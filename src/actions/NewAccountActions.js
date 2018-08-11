@@ -87,17 +87,14 @@ export const signupUser = ({ formData, navigation }) => {
         //attempt to sign up the new user... 
         firebase.auth().createUserWithEmailAndPassword(formData.email, formData.password)
             .then((user) => {
+                //new user was created so add them to the firestore database
                 createShredderDoc(user);
             })
-            .catch((error) => {
-                console.log('could not create shredder doc'); 
-                console.log(error); 
-            })
             .then((user) => {
+                //successfully added user to firestore so now update the mobile app page
                 signupUserSuccess(dispatch, user, navigation); 
             })
             .catch((error) => {
-                console.log('could not signup user');
                 console.log(error);  
 
                 let accountError = ACCOUNT_NOT_CREATED_ERROR;
@@ -106,6 +103,8 @@ export const signupUser = ({ formData, navigation }) => {
                 if (error.message !== null) {
                     accountError = error.message; 
                 }
+
+                //TODO: display accountError to user on mobile app 
                 console.log(accountError); 
                 signupUserFail(dispatch, accountError);      
             });
@@ -122,17 +121,18 @@ const createShredderDoc = (user) => {
     const settings = { timestampsInSnapshots: true }; 
     firestore.settings(settings);
 
-    //get refference to root node 'shredders' 
-    const shredderColRef = firestore.collection('shredders');
+    ///make a reference for a new shredder's doc with the Authentication uid
+    const shredderDocRef = firestore.collection('shredders').doc(user.user.uid);
     
     //add a new document with a generated id to the root collection 'shredders'
-    shredderColRef.add({
+    shredderDocRef.set({
         email: user.user.email
-    }).then((docRef) => {
-        console.log('SHREDDER UPDATE SUCCESS: ', docRef.id); 
-        return user; 
-    }).catch((error) => {
-        console.log('SHREDDER UPDATE FAIL'); 
+    })
+    .then(() => {
+        console.log('ADDED NEW SHREDDER DOC!'); 
+    })
+    .catch((error) => {
+        console.log('FAILED TO ADD NEW SHREDDER DOC'); 
         console.log(error);
     }); 
 };
