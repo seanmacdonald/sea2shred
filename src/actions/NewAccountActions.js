@@ -88,15 +88,13 @@ export const signupUser = ({ formData, navigation }) => {
         firebase.auth().createUserWithEmailAndPassword(formData.email, formData.password)
             .then((user) => {
                 //new user was created so add them to the firestore database
-                createShredderDoc(user);
+                createShredderDoc(user, formData);
             })
             .then((user) => {
                 //successfully added user to firestore so now update the mobile app page
                 signupUserSuccess(dispatch, user, navigation); 
             })
             .catch((error) => {
-                console.log(error);  
-
                 let accountError = ACCOUNT_NOT_CREATED_ERROR;
 
                 //if firebase has an error message then display it instead
@@ -104,8 +102,6 @@ export const signupUser = ({ formData, navigation }) => {
                     accountError = error.message; 
                 }
 
-                //TODO: display accountError to user on mobile app 
-                console.log(accountError); 
                 signupUserFail(dispatch, accountError);      
             });
     };
@@ -115,7 +111,7 @@ export const signupUser = ({ formData, navigation }) => {
 /*
     Helper Methods 
 */
-const createShredderDoc = (user) => {
+const createShredderDoc = (user, formData) => {
     //first initialize firestore with proper settigns
     const firestore = firebase.firestore();
     const settings = { timestampsInSnapshots: true }; 
@@ -126,6 +122,8 @@ const createShredderDoc = (user) => {
     
     //add a new document with a generated id to the root collection 'shredders'
     shredderDocRef.set({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
         email: user.user.email
     })
     .then(() => {
