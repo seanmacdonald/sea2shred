@@ -6,6 +6,7 @@ import {
 
 const INITIAL_STATE = {
     loading: false, 
+    friends: [],
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -14,7 +15,11 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, loading: true }; 
         
         case FETCH_SHREDDERS_SUCCESS: 
-            return { ...state, loading: false }; 
+            return { 
+                ...state, 
+                loading: false, 
+                friends: action.payload
+            }; 
         
         case FETCH_SHREDDERS_FAIL: 
             return { ...state, loading: false }; 

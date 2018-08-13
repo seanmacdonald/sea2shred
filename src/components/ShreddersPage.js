@@ -29,7 +29,7 @@ class ShreddersPage extends Component {
         );
 
     render() {
-        console.log(this.props.loading); 
+        console.log(this.props); 
         return (
             <View style={styles.containerStyle}>
                 <Header 
@@ -52,7 +52,8 @@ const styles = {
 
 const MapStateToProps = (state) => {
     return {
-        loading: state.shred.loading
+        loading: state.shred.loading, 
+        friends: state.shred.friends
     };
 };
 

@@ -124,7 +124,8 @@ const createShredderDoc = (user, formData) => {
     shredderDocRef.set({
         firstName: formData.firstName,
         lastName: formData.lastName,
-        email: user.user.email
+        email: user.user.email, 
+        uid: user.user.uid
     })
     .then(() => {
         console.log('ADDED NEW SHREDDER DOC!'); 
