@@ -1,10 +1,10 @@
 import React, { Component } from 'react'; 
 import { connect } from 'react-redux'; 
-import { View, Text } from 'react-native'; 
+import { View, Text, ScrollView } from 'react-native'; 
 import { Icon } from 'react-native-elements';
 
-import { fetchShredders } from '../actions'; 
-import { Header } from './common'; 
+import { fetchShredders, signupFirstNameChanged } from '../actions'; 
+import { Header, Spinner } from './common'; 
 
 class ShreddersPage extends Component {
     static navigationOptions = {
@@ -28,8 +28,29 @@ class ShreddersPage extends Component {
             />
         );
 
+    renderFriendSection = (friend) => {
+        return (
+            <Text>
+                {friend.firstName}
+            </Text>
+        );
+    }
+
+    renderFriends = (friends) => {
+        /*friends.forEach((thing) => {
+            console.log('Hi');
+            console.log(thing); 
+            return this.renderFriendSection(thing);
+        });*/
+        return (
+        friends.map((friend) => 
+            this.renderFriendSection(friend))
+        );
+    }
+
     render() {
         console.log(this.props); 
+        const { fetchingShredders, fetchingShreddersSuccess, friends } = this.props;
         return (
             <View style={styles.containerStyle}>
                 <Header 
@@ -37,7 +58,18 @@ class ShreddersPage extends Component {
                     headerText='Shredders'
                     rightIcon={this.rightIcon} 
                 />
-                <Text>TODO: IMPLEMENT SHREDDERS PAGE</Text>
+                <ScrollView
+                    contentContainerStyle={{ flexGrow: 1 }}
+                >
+                    { fetchingShredders && <Spinner size='large' /> }
+                    {
+                        fetchingShreddersSuccess &&
+                        <View>
+                            <Text>Friends:</Text>
+                            {this.renderFriends(friends)}
+                        </View>
+                    }
+                </ScrollView>
             </View> 
         );
     }
@@ -51,9 +83,18 @@ const styles = {
 }; 
 
 const MapStateToProps = (state) => {
+    const {
+        fetchingShredders, 
+        fetchingShreddersSuccess, 
+        fetchingShreddersFail, 
+        friends
+    } = state.shred; 
+
     return {
-        loading: state.shred.loading, 
-        friends: state.shred.friends
+        fetchingShredders, 
+        fetchingShreddersSuccess, 
+        fetchingShreddersFail, 
+        friends
     };
 };
 

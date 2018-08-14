@@ -5,24 +5,39 @@ import {
 } from '../actions/types'; 
 
 const INITIAL_STATE = {
-    loading: false, 
+    fetchingShredders: false,
+    fetchingShreddersSuccess: false, 
+    fetchingShreddersFail: false, 
     friends: [],
 };
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case FETCH_SHREDDERS: 
-            return { ...state, loading: true }; 
+            return { 
+                ...state, 
+                fetchingShredders: true, 
+                fetchingShreddersSuccess: false, 
+                fetchingShreddersFail: false, 
+                friends: []
+            }; 
         
         case FETCH_SHREDDERS_SUCCESS: 
             return { 
                 ...state, 
-                loading: false, 
+                fetchingShredders: false, 
+                fetchingShreddersSuccess: true, 
+                fetchingShreddersFail: false, 
                 friends: action.payload
             }; 
         
         case FETCH_SHREDDERS_FAIL: 
-            return { ...state, loading: false }; 
+            return { 
+                ...state, 
+                fetchingShredders: false, 
+                fetchingShreddersSuccess: false, 
+                fetchingShreddersFail: true, 
+            }; 
         
         default: 
             return state; 
