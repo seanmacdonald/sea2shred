@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { View, Text, ScrollView } from 'react-native'; 
 import { Icon } from 'react-native-elements';
 
-import { fetchShredders, signupFirstNameChanged } from '../actions'; 
-import { Header, Spinner } from './common'; 
+import { fetchShredders } from '../actions'; 
+import { Header, Spinner, CardSection } from './common'; 
 
 class ShreddersPage extends Component {
     static navigationOptions = {
@@ -30,18 +30,15 @@ class ShreddersPage extends Component {
 
     renderFriendSection = (friend) => {
         return (
-            <Text>
-                {friend.firstName}
-            </Text>
+            <CardSection key={friend.uid}>
+                <Text>
+                    {friend.firstName}
+                </Text>
+            </CardSection>
         );
     }
 
     renderFriends = (friends) => {
-        /*friends.forEach((thing) => {
-            console.log('Hi');
-            console.log(thing); 
-            return this.renderFriendSection(thing);
-        });*/
         return (
         friends.map((friend) => 
             this.renderFriendSection(friend))
@@ -65,7 +62,6 @@ class ShreddersPage extends Component {
                     {
                         fetchingShreddersSuccess &&
                         <View>
-                            <Text>Friends:</Text>
                             {this.renderFriends(friends)}
                         </View>
                     }
