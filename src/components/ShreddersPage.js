@@ -28,17 +28,33 @@ class ShreddersPage extends Component {
             />
         );
 
+    //compares friends by their last names
+    compare = (friend1, friend2) => {
+        if (friend1.lastName < friend2.lastName) {
+            return -1; 
+        }
+
+        if (friend1.lastName > friend2.lastName) {
+            return 1;
+        }
+
+        return 0;
+    }
+
     renderFriendSection = (friend) => {
         return (
             <CardSection key={friend.uid}>
                 <Text>
-                    {friend.firstName}
+                    {friend.firstName} {' '} {friend.lastName}
                 </Text>
             </CardSection>
         );
     }
 
     renderFriends = (friends) => {
+        //first sort the friends array 
+        friends.sort(this.compare);
+
         return (
         friends.map((friend) => 
             this.renderFriendSection(friend))
