@@ -21,6 +21,10 @@ class ShreddersPage extends Component {
         this.props.fetchShredders();  
     }
 
+    componentWillUnmount() {
+        console.log('shredders page unmounted'); 
+    }
+
     rightIcon = (
             <Icon
                 name='person-add'

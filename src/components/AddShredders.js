@@ -1,23 +1,29 @@
 import React, { Component } from 'react'; 
-import { View, Text } from 'react-native'; 
+import { View, Text } from 'react-native';
+import SearchBar from 'react-native-search-bar'; 
 
 
 class AddShredders extends Component {
     static navigationOptions = {
-        title: 'Add Shredders',
-        headerTitleStyle: {
-            color: 'red', 
-            fontFamily: 'verdana' //TODO: fix fonts for all titles 
-        },
         headerStyle: {
                 backgroundColor: '#dd7ac8'
         }
     };
 
+    constructor(props) {
+        super(props); 
+        this.searchBar = React.createRef(); 
+    }
+
+    handleOnChangeText = () => {
+        console.log('search shredders');
+    }
+
     render() {
         return (
             <View style={styles.containerStyle}>
-                <Text>TODO: IMPLEMENT ADD SHREDDERS PAGE</Text> 
+                <SearchBar
+                    ref={ref => (this.searchBar = ref)}                />
             </View>
         );
     }
