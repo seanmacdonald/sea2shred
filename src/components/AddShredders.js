@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { connect } from 'react-redux'; 
 import SearchBar from 'react-native-search-bar'; 
 
-import searchShredders from '../actions'; 
+import { searchShredders } from '../actions'; 
 
 
 class AddShredders extends Component {
@@ -19,11 +19,14 @@ class AddShredders extends Component {
     }
 
     handleSearchButtonPress = (event) => {
-        console.log('search shredders');
-        console.log(event);
+        //TODO: modify parameters of searchShredders to have bounds 
+        //      so that users can be searched for without having to 
+        //      spell the users exact name when searching for them
+        this.props.searchShredders(event); 
     }
 
     render() {
+        console.log(this.props); 
         return (
             <View style={styles.containerStyle}>
                 <SearchBar
@@ -45,10 +48,16 @@ const styles = {
 
 const MapStateToProps = (state) => {
     const { 
+        searchingShredders, 
+        searchingShreddersSuccess, 
+        searchingShreddersFail,
         friends
     } = state.shred;
     
     return {
+        searchingShredders, 
+        searchingShreddersSuccess, 
+        searchingShreddersFail,
         friends
     };  
 };

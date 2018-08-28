@@ -72,10 +72,12 @@ const searchForShredders = (dispatch, searchText) => {
     firestore.settings(settings);
 
     //make ref for shredders collection
-    const friendsColRef = firestore.collection('shredders/'); 
+    const friendsColRef = firestore.collection('shredders'); 
 
     //now query firestore to get all users that match the searh parameter
-    friendsColRef.where('lastName', '>=', searchText)
+    //TODO: make query an inequality to grab more users 
+    friendsColRef.where('lastName', '==', searchText)
+        .get()
         .then((querySnapshot) => {
             const searchResults = [];
 
