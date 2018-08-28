@@ -88,7 +88,7 @@ const searchForShredders = (dispatch, searchText) => {
             });
 
             dispatch({
-                type: FETCH_SHREDDERS_SUCCESS, 
+                type: SEARCH_SHREDDERS_SUCCESS, 
                 payload: searchResults
             });
         }); 
