@@ -21,5 +21,8 @@ export const SIGNUP_USER_FAIL = 'signup_user_fail';
 //Shredder Actions 
 export const FETCH_SHREDDERS = 'fetch_shredders';
 export const FETCH_SHREDDERS_SUCCESS = 'fetch_shredders_success'; 
-export const FETCH_SHREDDERS_FAIL = 'fetch_shredders_fail';  
+export const FETCH_SHREDDERS_FAIL = 'fetch_shredders_fail';
+export const SEARCH_SHREDDERS = 'search_shredders'; 
+export const SEARCH_SHREDDERS_SUCCESS = 'search_shredders_success'; 
+export const SEARCH_SHREDDERS_FAIL = 'search_shredders_fail';   
  

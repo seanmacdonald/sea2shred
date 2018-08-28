@@ -103,7 +103,7 @@ const MapStateToProps = (state) => {
         fetchingShredders, 
         fetchingShreddersSuccess, 
         fetchingShreddersFail, 
-        friends
+        friends //note that friends are shredders that are friends with this user
     } = state.shred; 
 
     return {

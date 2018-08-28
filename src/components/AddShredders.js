@@ -1,6 +1,9 @@
 import React, { Component } from 'react'; 
 import { View, Text } from 'react-native';
+import { connect } from 'react-redux'; 
 import SearchBar from 'react-native-search-bar'; 
+
+import searchShredders from '../actions'; 
 
 
 class AddShredders extends Component {
@@ -15,15 +18,19 @@ class AddShredders extends Component {
         this.searchBar = React.createRef(); 
     }
 
-    handleOnChangeText = () => {
+    handleSearchButtonPress = (event) => {
         console.log('search shredders');
+        console.log(event);
     }
 
     render() {
         return (
             <View style={styles.containerStyle}>
                 <SearchBar
-                    ref={ref => (this.searchBar = ref)}                />
+                    ref={ref => (this.searchBar = ref)}       
+                    placeholder="Search"     
+                    onSearchButtonPress={this.handleSearchButtonPress.bind(this)}
+                />
             </View>
         );
     }
@@ -36,5 +43,17 @@ const styles = {
     }
 }; 
 
-export default AddShredders; 
+const MapStateToProps = (state) => {
+    const { 
+        friends
+    } = state.shred;
+    
+    return {
+        friends
+    };  
+};
+
+export default connect(MapStateToProps, {
+    searchShredders
+})(AddShredders); 
 

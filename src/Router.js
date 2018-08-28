@@ -27,7 +27,7 @@ class Router extends Component {
             } else {
                 this.props.userNotLoggedIn(); // there is no user logged in, so use GuestRouter
             }
-        });
+        }); 
     }
 
 

@@ -3,9 +3,15 @@ import firebase from 'firebase';
 import { 
     FETCH_SHREDDERS, 
     FETCH_SHREDDERS_SUCCESS,
-    FETCH_SHREDDERS_FAIL
+    FETCH_SHREDDERS_FAIL,
+    SEARCH_SHREDDERS,
+    SEARCH_SHREDDERS_SUCCESS, 
+    SEARCH_SHREDDERS_FAIL 
 } from './types'; 
 
+/*
+    ShreddersPage Action Creators
+*/
 export const fetchShredders = () => {
     return (dispatch) => {
         dispatch({ type: FETCH_SHREDDERS }); 
@@ -14,6 +20,17 @@ export const fetchShredders = () => {
     };
 };
 
+
+/*
+    AddShredders Action Creators 
+*/
+export const searchShredders = (searchText) => {
+    return (dispatch) => {
+        dispatch({ type: SEARCH_SHREDDERS }); 
+
+        searchForShredders(dispatch, searchText); 
+    };
+};
 
 /* 
     Helper Methods 
@@ -46,4 +63,31 @@ const getAllFriends = (dispatch) => {
             payload: friends
          });
     });
+};
+
+const searchForShredders = (dispatch, searchText) => {
+    //first initialize firestore with proper settigns
+    const firestore = firebase.firestore();
+    const settings = { timestampsInSnapshots: true }; 
+    firestore.settings(settings);
+
+    //make ref for shredders collection
+    const friendsColRef = firestore.collection('shredders/'); 
+
+    //now query firestore to get all users that match the searh parameter
+    friendsColRef.where('lastName', '>=', searchText)
+        .then((querySnapshot) => {
+            const searchResults = [];
+
+            querySnapshot.forEach((doc) => {
+                //doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, ' => ', doc.data());
+                searchResults.push(doc.data());
+            });
+
+            dispatch({
+                type: FETCH_SHREDDERS_SUCCESS, 
+                payload: searchResults
+            });
+        }); 
 };
