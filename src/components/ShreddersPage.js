@@ -4,7 +4,7 @@ import { View, Text, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import { fetchShredders } from '../actions'; 
-import { Header, Spinner, CardSection } from './common'; 
+import { Header, Spinner, CardSection, UserList } from './common'; 
 
 class ShreddersPage extends Component {
     static navigationOptions = {
@@ -32,39 +32,6 @@ class ShreddersPage extends Component {
             />
         );
 
-    //compares friends by their last names
-    compare = (friend1, friend2) => {
-        if (friend1.lastName < friend2.lastName) {
-            return -1; 
-        }
-
-        if (friend1.lastName > friend2.lastName) {
-            return 1;
-        }
-
-        return 0;
-    }
-
-    renderFriendSection = (friend) => {
-        return (
-            <CardSection key={friend.uid}>
-                <Text>
-                    {friend.firstName} {' '} {friend.lastName}
-                </Text>
-            </CardSection>
-        );
-    }
-
-    renderFriends = (friends) => {
-        //first sort the friends array 
-        friends.sort(this.compare);
-
-        return (
-        friends.map((friend) => 
-            this.renderFriendSection(friend))
-        );
-    }
-
     render() {
         console.log(this.props); 
         const { fetchingShredders, fetchingShreddersSuccess, friends } = this.props;
@@ -81,9 +48,9 @@ class ShreddersPage extends Component {
                     { fetchingShredders && <Spinner size='large' /> }
                     {
                         fetchingShreddersSuccess &&
-                        <View>
-                            {this.renderFriends(friends)}
-                        </View>
+                        <UserList
+                            users={friends}
+                        />
                     }
                 </ScrollView>
             </View> 

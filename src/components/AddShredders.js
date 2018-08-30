@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import SearchBar from 'react-native-search-bar'; 
 
 import { searchShredders } from '../actions'; 
-import { Spinner, CardSection } from '../components/common'; 
+import { Spinner, CardSection, UserList } from '../components/common'; 
 
 
 class AddShredders extends Component {
@@ -22,41 +22,10 @@ class AddShredders extends Component {
     handleSearchButtonPress = (event) => {
         //TODO: modify parameters of searchShredders to have bounds 
         //      so that users can be searched for without having to 
-        //      spell the users exact name when searching for them
+        //      spell the users exact name when searching for them.
+        //      Also, currently only last names can only be used to search
+        //      for users. Should be able to search first names as well. 
         this.props.searchShredders(event); 
-    }
-
-    //compares friends by their last names
-    compare = (friend1, friend2) => {
-        if (friend1.lastName < friend2.lastName) {
-            return -1; 
-        }
-
-        if (friend1.lastName > friend2.lastName) {
-            return 1;
-        }
-
-        return 0;
-    }
-
-    renderFriendSection = (friend) => {
-        return (
-            <CardSection key={friend.uid}>
-                <Text>
-                    {friend.firstName} {' '} {friend.lastName}
-                </Text>
-            </CardSection>
-        );
-    }
-
-    renderSearchResults = (searchResults) => {
-        //first sort the friends array 
-        searchResults.sort(this.compare);
-
-        return (
-        searchResults.map((friend) => 
-            this.renderFriendSection(friend))
-        );
     }
 
     render() {
@@ -85,7 +54,9 @@ class AddShredders extends Component {
                             {
                                 searchingShreddersSuccess &&
                                 <View>
-                                    {this.renderSearchResults(searchResults)}
+                                    <UserList 
+                                        users={searchResults}
+                                    />
                                 </View>
                             }
 
