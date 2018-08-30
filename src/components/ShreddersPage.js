@@ -50,6 +50,7 @@ class ShreddersPage extends Component {
                         fetchingShreddersSuccess &&
                         <UserList
                             users={friends}
+                            emptyMessage='Click the add person icon to find and add your friends!'
                         />
                     }
                 </ScrollView>

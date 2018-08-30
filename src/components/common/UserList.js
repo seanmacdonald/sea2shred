@@ -1,12 +1,12 @@
 import React, { Component } from 'react'; 
-import { Text } from 'react-native'; 
+import { View, Text } from 'react-native'; 
 
 import { CardSection } from '../common'; 
 
 /*
     This component renders a list of users in alphabetical order. This 
-    component assumes that the given user array is not empty and that each 
-    user element has the properties: uid, firstName and lastName. 
+    component assumes that each user element has the properties: uid, 
+    firstName and lastName. 
 */
 class UserList extends Component {
     //function to compare users by their last names
@@ -43,6 +43,18 @@ class UserList extends Component {
     }
 
     render() {
+        const { users, emptyMessage } = this.props;
+        
+        //if the user array is empty then display the empty message
+        if (users === undefined || users.length === 0) {
+            return (
+                <View> 
+                    <Text>{emptyMessage}</Text>
+                </View>
+            );
+        }
+        
+        //otherwise display all the users
         return (this.renderUserList(this.props.users));
     }
 }

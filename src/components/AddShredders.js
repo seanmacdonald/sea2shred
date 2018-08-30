@@ -56,6 +56,7 @@ class AddShredders extends Component {
                                 <View>
                                     <UserList 
                                         users={searchResults}
+                                        emptyMessage='Sorry, no results were found.'
                                     />
                                 </View>
                             }
