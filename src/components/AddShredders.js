@@ -57,6 +57,7 @@ class AddShredders extends Component {
                                     <UserList 
                                         users={searchResults}
                                         emptyMessage='Sorry, no results were found.'
+                                        navigation={this.props.navigation}
                                     />
                                 </View>
                             }
@@ -64,7 +65,7 @@ class AddShredders extends Component {
                             {/*Otherwise render error message if the search was not a success*/}
                             {
                                 searchingShreddersFail &&
-                                <Text>There was an error</Text>
+                                <Text>There was an error getting shredders</Text>
                             }
                         </ScrollView>
                     </View>

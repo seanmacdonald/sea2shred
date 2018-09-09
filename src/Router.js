@@ -10,6 +10,7 @@ import SignupForm from './components/SignupForm';
 import MapPage from './components/MapPage';
 import ShreddersPage from './components/ShreddersPage'; 
 import AddShredders from './components/AddShredders'; 
+import ShredderDetailPage from './components/ShredderDetailPage'; 
 import SettingsPage from './components/SettingsPage';  
 import { userLoggedIn, userNotLoggedIn } from './actions';
 import { Spinner } from './components/common';  
@@ -71,6 +72,9 @@ const ShreddersStack = StackNavigator({
     }, 
     AddShredders: { 
         screen: AddShredders 
+    }, 
+    ShredderDetails: {
+        screen: ShredderDetailPage
     }
 }, 
 {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'; 
-import { View, Text } from 'react-native'; 
+import { View, Text, TouchableHighlight } from 'react-native'; 
 
 import { CardSection } from '../common'; 
 
@@ -9,6 +9,14 @@ import { CardSection } from '../common';
     firstName and lastName. 
 */
 class UserList extends Component {
+    onPressUserSection(uid) {
+        console.log(`section Pressed:  ${uid}`); 
+        console.log(this.props); 
+        this.props.navigation.navigate('ShredderDetails', {
+            uid
+        });
+    }
+
     //function to compare users by their last names
     compare = (user1, user2) => {
         if (user1.lastName < user2.lastName) {
@@ -24,11 +32,13 @@ class UserList extends Component {
 
     renderUserSection = (user) => {
         return (
-            <CardSection key={user.uid}>
-                <Text>
-                    {user.firstName} {user.lastName}
-                </Text>
-            </CardSection>
+            <TouchableHighlight onPress={this.onPressUserSection.bind(this, user.uid)} key={user.uid}> 
+                <CardSection>
+                    <Text>
+                        {user.firstName} {user.lastName}
+                    </Text>
+                </CardSection>
+            </TouchableHighlight>
         );
     }
 

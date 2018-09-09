@@ -51,6 +51,7 @@ class ShreddersPage extends Component {
                         <UserList
                             users={friends}
                             emptyMessage='Click the add person icon to find and add your friends!'
+                            navigation={this.props.navigation}
                         />
                     }
                 </ScrollView>
