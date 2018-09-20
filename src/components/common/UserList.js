@@ -11,9 +11,17 @@ import { CardSection } from '../common';
 class UserList extends Component {
     onPressUserSection(uid) {
         console.log(`section Pressed:  ${uid}`); 
-        console.log(this.props); 
+        console.log(this.props);
+        let isFriend = false; 
+        this.props.friends.forEach(element => {
+            if (element.uid === uid) {
+                isFriend = true; 
+            }
+        });
+        
         this.props.navigation.navigate('ShredderDetails', {
-            uid
+            uid, 
+            isFriend
         });
     }
 
@@ -34,7 +42,7 @@ class UserList extends Component {
         return (
             <TouchableHighlight onPress={this.onPressUserSection.bind(this, user.uid)} key={user.uid}> 
                 <CardSection>
-                    <Text>
+                    <Text style={styles.textStyle}>
                         {user.firstName} {user.lastName}
                     </Text>
                 </CardSection>
@@ -68,5 +76,14 @@ class UserList extends Component {
         return (this.renderUserList(this.props.users));
     }
 }
+
+
+const styles = {
+    textStyle: {
+        fontSize: 16, 
+        paddingTop: 3,
+        paddingBottom: 3
+    }
+};
 
 export { UserList }; 

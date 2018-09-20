@@ -8,14 +8,28 @@ class ShredderDetailPage extends Component {
         }
     };
 
+    renderFriend() {
+        return (
+            <Text>Friend Info</Text>
+        );
+    }
+
+    renderNonFriend() {
+        return (
+            <Text>Non Friend Info</Text>
+        );
+    }
+
     render() {
         const uid = this.props.navigation.getParam('uid');
+        const isFriend = this.props.navigation.getParam('isFriend'); 
         console.log(`SHREDDER DETAILS FOR: ${uid}`);
+
         return (
             <View style={styles.containerStyle}>
-                <Text>
-                    TODO: Implement ShredderDetailPage
-                </Text>
+                {/*Either render a friend or a non friend*/}
+                {isFriend && this.renderFriend()}
+                {!isFriend && this.renderNonFriend()}
             </View>
         );
     }

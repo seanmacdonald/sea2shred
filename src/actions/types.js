@@ -24,5 +24,8 @@ export const FETCH_SHREDDERS_SUCCESS = 'fetch_shredders_success';
 export const FETCH_SHREDDERS_FAIL = 'fetch_shredders_fail';
 export const SEARCH_SHREDDERS = 'search_shredders'; 
 export const SEARCH_SHREDDERS_SUCCESS = 'search_shredders_success'; 
-export const SEARCH_SHREDDERS_FAIL = 'search_shredders_fail';   
+export const SEARCH_SHREDDERS_FAIL = 'search_shredders_fail'; 
+export const FETCH_SHREDDER_DETAILS = 'fetch_shredder_details'; 
+export const FETCH_SHREDDER_DETAILS_SUCCESS = 'fetch_shredder_details_success';
+export const FETCH_SHREDDER_DETAILS_FAIL = 'fetch_shredder_details_fail';   
  

@@ -29,10 +29,11 @@ class AddShredders extends Component {
     }
 
     render() {
+        console.log('AddShredders render');
         console.log(this.props); 
 
         const { searchingShredders, searchingShreddersSuccess, 
-                searchingShreddersFail, searchResults } = this.props; 
+                searchingShreddersFail, searchResults, friends } = this.props; 
         return (
             <View style={styles.containerStyle}>
                 {/*Only render spinner while searching for shredders*/}
@@ -56,6 +57,7 @@ class AddShredders extends Component {
                                 <View>
                                     <UserList 
                                         users={searchResults}
+                                        friends={friends}
                                         emptyMessage='Sorry, no results were found.'
                                         navigation={this.props.navigation}
                                     />

@@ -4,9 +4,14 @@ import {
     FETCH_SHREDDERS, 
     FETCH_SHREDDERS_SUCCESS,
     FETCH_SHREDDERS_FAIL,
+
     SEARCH_SHREDDERS,
     SEARCH_SHREDDERS_SUCCESS, 
-    SEARCH_SHREDDERS_FAIL 
+    SEARCH_SHREDDERS_FAIL,
+
+    FETCH_SHREDDER_DETAILS, 
+    FETCH_SHREDDER_DETAILS_SUCCESS, 
+    FETCH_SHREDDER_DETAILS_FAIL  
 } from './types'; 
 
 /*
@@ -32,12 +37,23 @@ export const searchShredders = (searchText) => {
     };
 };
 
+/*
+    ShredderDetailPage Action Creators
+*/
+export const fetchShredderDetails = (uid, isFriend) => {
+    return (dispatch) => {
+        dispatch({ type: FETCH_SHREDDER_DETAILS });
+
+        getShredderDetails(dispatch, uid, isFriend); 
+    };
+};
+
 /* 
     Helper Methods 
 */
 
 const getAllFriends = (dispatch) => {
-    //first initialize firestore with proper settigns
+    //first initialize firestore with proper settings
     const firestore = firebase.firestore();
     const settings = { timestampsInSnapshots: true }; 
     firestore.settings(settings);
@@ -92,4 +108,11 @@ const searchForShredders = (dispatch, searchText) => {
                 payload: searchResults
             });
         }); 
+};
+
+/*
+    This functions gets the details of a shredder 
+*/
+const getShredderDetails = (dispatch, uid, isFriend) => {
+    //TODO: implement this method
 };

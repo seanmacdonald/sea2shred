@@ -33,6 +33,7 @@ class ShreddersPage extends Component {
         );
 
     render() {
+        console.log('ShreddersPage render');
         console.log(this.props); 
         const { fetchingShredders, fetchingShreddersSuccess, friends } = this.props;
         return (
@@ -50,6 +51,7 @@ class ShreddersPage extends Component {
                         fetchingShreddersSuccess &&
                         <UserList
                             users={friends}
+                            friends={friends}
                             emptyMessage='Click the add person icon to find and add your friends!'
                             navigation={this.props.navigation}
                         />
