@@ -82,7 +82,7 @@ const getAllFriends = (dispatch) => {
 };
 
 const searchForShredders = (dispatch, searchText) => {
-    //first initialize firestore with proper settigns
+    //first initialize firestore with proper settings
     const firestore = firebase.firestore();
     const settings = { timestampsInSnapshots: true }; 
     firestore.settings(settings);
@@ -114,5 +114,45 @@ const searchForShredders = (dispatch, searchText) => {
     This functions gets the details of a shredder 
 */
 const getShredderDetails = (dispatch, uid, isFriend) => {
-    //TODO: implement this method
+    //first initialize firestore with proper settings
+    const firestore = firebase.firestore();
+    const settings = { timestampsInSnapshots: true }; 
+    firestore.settings(settings);
+
+    if (isFriend) {
+        //get current user 
+        const user = firebase.auth().currentUser;
+
+        //make a reference for the user's friends collection
+        const friendDocRef = firestore.doc(`shredders/${user.uid}/friends/${uid}`);
+
+        friendDocRef.get().then((doc) => {
+            if (doc.exists) {
+                console.log('Document data:', doc.data());
+            } else {
+                dispatch({ type: FETCH_SHREDDER_DETAILS_SUCCESS });
+            }
+
+            dispatch({
+                type: FETCH_SHREDDER_DETAILS_SUCCESS, 
+                payload: doc.data()
+             });
+        });
+    } else {
+        //make a reference to the parameter uid under shredders collection 
+        const uidDocRef = firestore.doc(`shredders/${uid}`);
+
+        uidDocRef.get().then((doc) => {
+            if (doc.exists) {
+                console.log('Document data:', doc.data());
+            } else {
+                dispatch({ type: FETCH_SHREDDER_DETAILS_SUCCESS });
+            }
+
+            dispatch({
+                type: FETCH_SHREDDER_DETAILS_SUCCESS, 
+                payload: doc.data()
+             });
+        });
+    }
 };

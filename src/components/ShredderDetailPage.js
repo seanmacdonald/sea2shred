@@ -1,5 +1,8 @@
 import React, { Component } from 'react'; 
+import { connect } from 'react-redux'; 
 import { Text, View } from 'react-native'; 
+
+import { fetchShredderDetails } from '../actions'; 
 
 class ShredderDetailPage extends Component {
     static navigationOptions = {
@@ -8,13 +11,22 @@ class ShredderDetailPage extends Component {
         }
     };
 
-    renderFriend() {
+    componentWillMount() {
+        const uid = this.props.navigation.getParam('uid');
+        const isFriend = this.props.navigation.getParam('isFriend'); 
+
+        this.props.fetchShredderDetails(uid, isFriend); 
+    }
+
+    renderFriend(details) {
+        console.log('Friend details:', details);
         return (
             <Text>Friend Info</Text>
         );
     }
 
-    renderNonFriend() {
+    renderNonFriend(details) {
+        console.log('Non friend details:', details);
         return (
             <Text>Non Friend Info</Text>
         );
@@ -23,13 +35,13 @@ class ShredderDetailPage extends Component {
     render() {
         const uid = this.props.navigation.getParam('uid');
         const isFriend = this.props.navigation.getParam('isFriend'); 
-        console.log(`SHREDDER DETAILS FOR: ${uid}`);
+        const { details } = this.props; 
 
         return (
             <View style={styles.containerStyle}>
                 {/*Either render a friend or a non friend*/}
-                {isFriend && this.renderFriend()}
-                {!isFriend && this.renderNonFriend()}
+                {isFriend && this.renderFriend(details)}
+                {!isFriend && this.renderNonFriend(details)}
             </View>
         );
     }
@@ -42,4 +54,23 @@ const styles = {
     }
 }; 
 
-export default ShredderDetailPage;
+const MapStateToProps = (state) => {
+    const {
+        fetchingDetails, 
+        fetchingDetailsSuccess, 
+        fetchingDetailsFail, 
+        details 
+    } = state.shred; 
+
+    return {
+        fetchingDetails, 
+        fetchingDetailsSuccess, 
+        fetchingDetailsFail, 
+        details 
+    };
+};
+
+export default connect(MapStateToProps, {
+    fetchShredderDetails
+})(ShredderDetailPage); 
+

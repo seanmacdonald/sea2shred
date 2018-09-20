@@ -1,10 +1,15 @@
 import { 
     FETCH_SHREDDERS, 
     FETCH_SHREDDERS_SUCCESS,
-    FETCH_SHREDDERS_FAIL, 
+    FETCH_SHREDDERS_FAIL,
+
     SEARCH_SHREDDERS, 
     SEARCH_SHREDDERS_SUCCESS, 
-    SEARCH_SHREDDERS_FAIL
+    SEARCH_SHREDDERS_FAIL,
+
+    FETCH_SHREDDER_DETAILS, 
+    FETCH_SHREDDER_DETAILS_SUCCESS,
+    FETCH_SHREDDER_DETAILS_FAIL
 } from '../actions/types'; 
 
 const INITIAL_STATE = {
@@ -16,7 +21,12 @@ const INITIAL_STATE = {
     searchingShredders: false, 
     searchingShreddersSuccess: false, 
     searchingShreddersFail: false, 
-    searchResults: []
+    searchResults: [],
+
+    fetchingDetails: false, 
+    fetchingDetailsSuccess: false, 
+    fetchingDetailsFail: false, 
+    details: {}
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -72,6 +82,31 @@ export default (state = INITIAL_STATE, action) => {
                 searchingShreddersSuccess: false, 
                 searchingShreddersFail: true, 
             }; 
+
+        case FETCH_SHREDDER_DETAILS:
+            return {
+                ...state, 
+                fetchingDetails: true, 
+                fetchingDetailsSuccess: false, 
+                fetchingDetailsFail: false, 
+            };
+        
+        case FETCH_SHREDDER_DETAILS_SUCCESS:
+            return {
+                ...state,
+                fetchingDetails: false, 
+                fetchingDetailsSuccess: true, 
+                fetchingDetailsFail: false, 
+                details: action.payload
+            };
+        
+        case FETCH_SHREDDER_DETAILS_FAIL:
+            return {
+                ...state,
+                fetchingDetails: false, 
+                fetchingDetailsSuccess: false, 
+                fetchingDetailsFail: true, 
+            };
         
         default: 
             return state; 
