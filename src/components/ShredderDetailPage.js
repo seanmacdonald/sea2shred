@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Text, View } from 'react-native'; 
 
 import { fetchShredderDetails } from '../actions'; 
+import { Spinner } from './common'; 
 
 class ShredderDetailPage extends Component {
     static navigationOptions = {
@@ -32,16 +33,35 @@ class ShredderDetailPage extends Component {
         );
     }
 
+    renderFetchDetailsError() {
+        return (
+            <View>
+                <Text>Sorry, could not retrieve user details.</Text>
+            </View>
+        );
+    }
+
     render() {
-        const uid = this.props.navigation.getParam('uid');
         const isFriend = this.props.navigation.getParam('isFriend'); 
-        const { details } = this.props; 
+        const { fetchingDetails, fetchingDetailsSuccess, 
+                fetchingDetailsFail, details } = this.props; 
 
         return (
             <View style={styles.containerStyle}>
-                {/*Either render a friend or a non friend*/}
-                {isFriend && this.renderFriend(details)}
-                {!isFriend && this.renderNonFriend(details)}
+                {/*Just render Spinner while fetching details*/}
+                {fetchingDetails && <Spinner size="large" />}
+
+                {/*Fetching details successful, render user details*/}
+                {fetchingDetailsSuccess &&
+                    <View>
+                        {/*Either render a friend or a non friend*/}
+                        {isFriend && this.renderFriend(details)}
+                        {!isFriend && this.renderNonFriend(details)}
+                    </View>
+                }
+
+                {/*Fetching details not successful, render error message*/}
+                {fetchingDetailsFail && this.renderFetchDetailsError()}
             </View>
         );
     }
