@@ -9,7 +9,7 @@ import { FIREBASE_CONFIG } from './config';
 
 class App extends Component {
     componentWillMount() {
-        firebase.initializeApp(FIREBASE_CONFIG); 
+        firebase.initializeApp(FIREBASE_CONFIG);
     }
 
     render() {

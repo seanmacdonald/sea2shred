@@ -111,7 +111,10 @@ const searchForShredders = (dispatch, searchText) => {
 };
 
 /*
-    This functions gets the details of a shredder 
+    This functions gets the details of a shredder who is either a friend or 
+    a non friend. If it is a friend, the details will be retrieved from the 
+    current user's friend collection. If it is not a friend the details will 
+    be retrieved from the shredder collection.  
 */
 const getShredderDetails = (dispatch, uid, isFriend) => {
     //first initialize firestore with proper settings
@@ -128,15 +131,13 @@ const getShredderDetails = (dispatch, uid, isFriend) => {
 
         friendDocRef.get().then((doc) => {
             if (doc.exists) {
-                console.log('Document data:', doc.data());
+                dispatch({
+                    type: FETCH_SHREDDER_DETAILS_SUCCESS, 
+                    payload: doc.data()
+                 });
             } else {
-                dispatch({ type: FETCH_SHREDDER_DETAILS_SUCCESS });
+                dispatch({ type: FETCH_SHREDDER_DETAILS_FAIL });
             }
-
-            dispatch({
-                type: FETCH_SHREDDER_DETAILS_SUCCESS, 
-                payload: doc.data()
-             });
         });
     } else {
         //make a reference to the parameter uid under shredders collection 
@@ -144,15 +145,13 @@ const getShredderDetails = (dispatch, uid, isFriend) => {
 
         uidDocRef.get().then((doc) => {
             if (doc.exists) {
-                console.log('Document data:', doc.data());
+                dispatch({
+                    type: FETCH_SHREDDER_DETAILS_SUCCESS, 
+                    payload: doc.data()
+                 });
             } else {
-                dispatch({ type: FETCH_SHREDDER_DETAILS_SUCCESS });
+                dispatch({ type: FETCH_SHREDDER_DETAILS_FAIL });
             }
-
-            dispatch({
-                type: FETCH_SHREDDER_DETAILS_SUCCESS, 
-                payload: doc.data()
-             });
         });
     }
 };
