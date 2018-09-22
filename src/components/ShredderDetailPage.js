@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Text, View, TouchableHighlight } from 'react-native'; 
 
 import { fetchShredderDetails } from '../actions'; 
-import { Spinner, Card, CardSection } from './common'; 
+import { Spinner, CardSection } from './common'; 
 import { Icon } from 'react-native-elements'; 
 
 class ShredderDetailPage extends Component {
@@ -50,6 +50,7 @@ class ShredderDetailPage extends Component {
                     </Text> 
                     <TouchableHighlight onPress={this.onPressAddFriend.bind(this)}>
                         <View style={styles.addFriendView}>
+                            <Icon name="add" />
                             <Text>ADD FRIEND</Text>
                         </View>
                     </TouchableHighlight>
@@ -110,7 +111,8 @@ const styles = {
         backgroundColor: '#eaaedd', 
         flexDirection: 'row', 
         alignItems: 'center', //centers the text vertically
-        justifyContent: 'center'
+        justifyContent: 'center', 
+        marginTop: 5
     }
 }; 
 

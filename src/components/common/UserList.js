@@ -1,5 +1,6 @@
 import React, { Component } from 'react'; 
-import { View, Text, TouchableHighlight } from 'react-native'; 
+import { View, Text, TouchableHighlight } from 'react-native';
+import firebase from 'firebase';  
 
 import { CardSection } from '../common'; 
 
@@ -60,9 +61,16 @@ class UserList extends Component {
 
     render() {
         const { users, emptyMessage } = this.props;
+
+        //remove the current user from the list if it is in it 
+        const currentUser = firebase.auth().currentUser; 
+        const currentUserUid = currentUser.uid;
+        const usersFiltered = users.filter((user) => {
+            return user.uid !== currentUserUid;
+        });
         
         //if the user array is empty then display the empty message
-        if (users === undefined || users.length === 0) {
+        if (usersFiltered === undefined || usersFiltered.length === 0) {
             return (
                 <View> 
                     <Text>{emptyMessage}</Text>
