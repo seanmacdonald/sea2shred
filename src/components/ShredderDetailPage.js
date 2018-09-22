@@ -1,9 +1,10 @@
 import React, { Component } from 'react'; 
 import { connect } from 'react-redux'; 
-import { Text, View } from 'react-native'; 
+import { Text, View, TouchableHighlight } from 'react-native'; 
 
 import { fetchShredderDetails } from '../actions'; 
-import { Spinner } from './common'; 
+import { Spinner, Card, CardSection } from './common'; 
+import { Icon } from 'react-native-elements'; 
 
 class ShredderDetailPage extends Component {
     static navigationOptions = {
@@ -19,17 +20,41 @@ class ShredderDetailPage extends Component {
         this.props.fetchShredderDetails(uid, isFriend); 
     }
 
+    onPressAddFriend() {
+        console.log('ADD FRIEND PRESSED'); 
+    }
+
     renderFriend(details) {
         console.log('Friend details:', details);
         return (
-            <Text>Friend Info</Text>
+            <View>
+                <CardSection style={styles.cardSectionOverride}>
+                    <Text style={styles.nameTextStyle}>
+                        {details.firstName} {details.lastName}
+                    </Text>
+                    <Text>
+                        Status: (Skiing/Unknown)
+                    </Text>
+                </CardSection>
+            </View> 
         );
     }
 
     renderNonFriend(details) {
         console.log('Non friend details:', details);
         return (
-            <Text>Non Friend Info</Text>
+            <View>
+                <CardSection style={styles.cardSectionOverride}>
+                    <Text style={styles.nameTextStyle}>
+                        {details.firstName} {details.lastName}
+                    </Text> 
+                    <TouchableHighlight onPress={this.onPressAddFriend.bind(this)}>
+                        <View style={styles.addFriendView}>
+                            <Text>ADD FRIEND</Text>
+                        </View>
+                    </TouchableHighlight>
+                </CardSection>
+            </View>
         );
     }
 
@@ -71,6 +96,21 @@ const styles = {
     containerStyle: {
         backgroundColor: 'white', 
         flex: 1
+    }, 
+    nameTextStyle: {
+        fontSize: 24
+    }, 
+    cardSectionOverride: {
+        padding: 20, 
+        flexDirection: 'column'
+    }, 
+    addFriendView: {
+        borderWidth: 1, 
+        borderColor: 'black',
+        backgroundColor: '#eaaedd', 
+        flexDirection: 'row', 
+        alignItems: 'center', //centers the text vertically
+        justifyContent: 'center'
     }
 }; 
 

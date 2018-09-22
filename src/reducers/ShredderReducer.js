@@ -88,7 +88,8 @@ export default (state = INITIAL_STATE, action) => {
                 ...state, 
                 fetchingDetails: true, 
                 fetchingDetailsSuccess: false, 
-                fetchingDetailsFail: false, 
+                fetchingDetailsFail: false,
+                details: {} 
             };
         
         case FETCH_SHREDDER_DETAILS_SUCCESS:

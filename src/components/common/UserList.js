@@ -10,8 +10,6 @@ import { CardSection } from '../common';
 */
 class UserList extends Component {
     onPressUserSection(uid) {
-        console.log(`section Pressed:  ${uid}`); 
-        console.log(this.props);
         let isFriend = false; 
         this.props.friends.forEach(element => {
             if (element.uid === uid) {
