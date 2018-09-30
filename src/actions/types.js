@@ -28,4 +28,9 @@ export const SEARCH_SHREDDERS_FAIL = 'search_shredders_fail';
 export const FETCH_SHREDDER_DETAILS = 'fetch_shredder_details'; 
 export const FETCH_SHREDDER_DETAILS_SUCCESS = 'fetch_shredder_details_success';
 export const FETCH_SHREDDER_DETAILS_FAIL = 'fetch_shredder_details_fail';   
+
+//Request Actions 
+export const SEND_FRIEND_REQUEST = 'send_friend_request'; 
+export const SEND_FRIEND_REQUEST_SUCCESS = 'send_friend_request_success';
+export const SEND_FRIEND_REQUEST_FAIL = 'send_friend_request_fail';  
  
