@@ -99,7 +99,8 @@ const styles = {
         flex: 1
     }, 
     nameTextStyle: {
-        fontSize: 24
+        fontSize: 24, 
+        paddingBottom: 5
     }, 
     cardSectionOverride: {
         padding: 20, 
@@ -112,7 +113,6 @@ const styles = {
         flexDirection: 'row', 
         alignItems: 'center', //centers the text vertically
         justifyContent: 'center', 
-        marginTop: 5
     }
 }; 
 
