@@ -1,10 +1,10 @@
 import React, { Component } from 'react'; 
 import { connect } from 'react-redux'; 
-import { Text, View, TouchableHighlight } from 'react-native'; 
+import { Text, View, TouchableHighlight } from 'react-native';
+import { Icon } from 'react-native-elements';  
 
-import { fetchShredderDetails } from '../actions'; 
+import { fetchShredderDetails, sendFriendRequest } from '../actions'; 
 import { Spinner, CardSection } from './common'; 
-import { Icon } from 'react-native-elements'; 
 
 class ShredderDetailPage extends Component {
     static navigationOptions = {
@@ -21,7 +21,9 @@ class ShredderDetailPage extends Component {
     }
 
     onPressAddFriend() {
-        console.log('ADD FRIEND PRESSED'); 
+        console.log('ADD FRIEND PRESSED');
+        const uid = this.props.navigation.getParam('uid'); 
+        this.props.sendFriendRequest(uid);  
     }
 
     renderFriend(details) {
@@ -133,6 +135,7 @@ const MapStateToProps = (state) => {
 };
 
 export default connect(MapStateToProps, {
-    fetchShredderDetails
+    fetchShredderDetails, 
+    sendFriendRequest
 })(ShredderDetailPage); 
 
