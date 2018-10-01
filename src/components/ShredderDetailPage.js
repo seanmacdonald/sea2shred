@@ -20,6 +20,10 @@ class ShredderDetailPage extends Component {
         this.props.fetchShredderDetails(uid, isFriend); 
     }
 
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps); 
+    }
+
     onPressAddFriend() {
         console.log('ADD FRIEND PRESSED');
         const uid = this.props.navigation.getParam('uid'); 
@@ -44,18 +48,26 @@ class ShredderDetailPage extends Component {
 
     renderNonFriend(details) {
         console.log('Non friend details:', details);
+        const { sendingRequest, sendingRequestSuccess,
+                sendingRequestFail } = this.props; 
         return (
             <View>
                 <CardSection style={styles.cardSectionOverride}>
                     <Text style={styles.nameTextStyle}>
                         {details.firstName} {details.lastName}
                     </Text> 
+                    
+                    {/*Just render spinner while sending request*/}
+                    {sendingRequest && <Spinner size="small" /> }
+
+                    {!sendingRequest &&
                     <TouchableHighlight onPress={this.onPressAddFriend.bind(this)}>
                         <View style={styles.addFriendView}>
                             <Icon name="add" />
                             <Text>ADD FRIEND</Text>
                         </View>
                     </TouchableHighlight>
+                    }
                 </CardSection>
             </View>
         );
@@ -126,11 +138,23 @@ const MapStateToProps = (state) => {
         details 
     } = state.shred; 
 
+    const {
+        pendingRequest, 
+        sendingRequest,
+        sendingRequestSuccess,
+        sendingRequestFail
+    } = state.req;
+
     return {
         fetchingDetails, 
         fetchingDetailsSuccess, 
         fetchingDetailsFail, 
-        details 
+        details, 
+
+        pendingRequest, 
+        sendingRequest,
+        sendingRequestSuccess,
+        sendingRequestFail
     };
 };
 
